@@ -1,36 +1,34 @@
 /*
- * ¸öÈËĞÅÏ¢£ºE12214013 ÍõÌìĞÄ
- * ±àÒë»·¾³£ºeasyxÍ¼ĞÎ¿â gcc 12.2.0
- * Ê¹ÓÃ¹¤¾ß£ºCLion InnoSetup£¨ÓÃÓÚ´ò°ü°²×°°ü£©
- * ±¾³ÌĞò»ùÓÚeasyxÍ¼ĞÎ¿â±àĞ´£¬ÔÚgcc 8.1.0ºÍ11.2.0°æ±¾ÏÂ»á³öÏÖÕÒ²»µ½³ÌĞòÊäÈëµãµÄ´íÎó£¬ÓÃ¸½´øµÄgcc 12.2.0°æ±¾Ìæ»»±¾µØ±àÒë¿â¼´¿É½â¾ö
- *
+ * ç¼–è¯‘ç¯å¢ƒï¼šeasyxå›¾å½¢åº“ gcc 12.2.0
+ * ä½¿ç”¨å·¥å…·ï¼šCLion InnoSetup
+ * æœ¬ç¨‹åºåŸºäºeasyxå›¾å½¢åº“ç¼–å†™ï¼Œåœ¨gcc 8.1.0å’Œ11.2.0ç‰ˆæœ¬ä¸‹ä¼šå‡ºç°æ‰¾ä¸åˆ°ç¨‹åºè¾“å…¥ç‚¹çš„é”™è¯¯ï¼Œç”¨é™„å¸¦çš„gcc 12.2.0ç‰ˆæœ¬æ›¿æ¢æœ¬åœ°ç¼–è¯‘åº“å³å¯è§£å†³
  */
 #include<bits/stdc++.h>
 #include<graphics.h>
 #include<conio.h>
 using namespace std;
 
-ExMessage msg;//Êó±êĞÅÏ¢½á¹¹Ìå
-int lessonNumber;//µ±Ç°¿ÆÄ¿×ÜÊı
-//Êı¾İ½Úµã£¨Ñ§Éú£©
+ExMessage msg;//é¼ æ ‡ä¿¡æ¯ç»“æ„ä½“
+int lessonNumber;//å½“å‰ç§‘ç›®æ€»æ•°
+//æ•°æ®èŠ‚ç‚¹ï¼ˆå­¦ç”Ÿï¼‰
 typedef struct stu {
-    string name;//Ñ§ÉúĞÕÃû
-    string id;//Ñ§ÉúÑ§ºÅ
-    double ls[100]{};//Ñ§Éú¸÷¿Æ³É¼¨
-    string gender;//Ñ§ÉúĞÔ±ğ
-    double score = 0;//Ñ§Éú×Ü·Ö
+    string name;//å­¦ç”Ÿå§“å
+    string id;//å­¦ç”Ÿå­¦å·
+    double ls[100]{};//å­¦ç”Ÿå„ç§‘æˆç»©
+    string gender;//å­¦ç”Ÿæ€§åˆ«
+    double score = 0;//å­¦ç”Ÿæ€»åˆ†
 }stu;
-string lessonList[100]; //¸÷¿ÆÄ¿Ãû³Æ
+string lessonList[100]; //å„ç§‘ç›®åç§°
 vector<stu> s;
 
-//Êä³öº¯Êı·â×°£¨×ÖÌåÑÕÉ«£¬×ÖºÅ£¬×ÖÌå£¬Êä³öÎ»ÖÃ£©
+//è¾“å‡ºå‡½æ•°å°è£…ï¼ˆå­—ä½“é¢œè‰²ï¼Œå­—å·ï¼Œå­—ä½“ï¼Œè¾“å‡ºä½ç½®ï¼‰
 void ot(int x, int y, COLORREF color, int nH, int nW, LPCTSTR str, LPCTSTR st){
     settextcolor(color);
     settextstyle(nH,nW,st);
     outtextxy(x, y, str);
 }
 
-//°´Å¥Ğ§¹û·â×°
+//æŒ‰é’®æ•ˆæœå°è£…
 void button_animation(ExMessage m, int l, int t, int r, int b, COLORREF colort, COLORREF colorf){
     if(m.x >= l && m.x <= r && msg.y >= t && msg.y <= b){
         setlinecolor(colort);
@@ -41,40 +39,40 @@ void button_animation(ExMessage m, int l, int t, int r, int b, COLORREF colort, 
     }
 }
 
-//½çÃæÌø×ª
+//ç•Œé¢è·³è½¬
 int choose = 1;
 int qchoose;
 int choosegraph(int mx, int my){
     if(mx >= 0 && mx <= 170){
         if(my >= 25 && my <= 115){
-            return 1;//ËùÓĞÑ§ÉúĞÅÏ¢PrintAll()
+            return 1;//æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯PrintAll()
         }
         else if(my >= 115 && my <= 205){
-            return 2;//Ìí¼ÓÑ§ÉúĞÅÏ¢AddStudent()
+            return 2;//æ·»åŠ å­¦ç”Ÿä¿¡æ¯AddStudent()
         }
         else if(my >= 205 && my <= 295){
-            return 3;//²éÕÒÑ§ÉúĞÅÏ¢SearchStudent()
+            return 3;//æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯SearchStudent()
         }
         else if(my >= 295 && my <= 385){
-            return 4;//Ñ¡ÔñÅÅÃû·½Ê½Sort_or_Score()
+            return 4;//é€‰æ‹©æ’åæ–¹å¼Sort_or_Score()
         }
         else if(my >= 385 && my <= 475){
-            return 5;//ĞŞ¸ÄÑ§ÉúĞÅÏ¢ChangeStudent()
+            return 5;//ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯ChangeStudent()
         }
         else if(my >= 475 && my <= 565){
-            return 6;//É¾³ıÑ§ÉúĞÅÏ¢DelStudent()
+            return 6;//åˆ é™¤å­¦ç”Ÿä¿¡æ¯DelStudent()
         }
         else if(my >= 565 && my <= 645){
-            return 7;//ÉèÖÃSetting()
+            return 7;//è®¾ç½®Setting()
         }
         else if(my >= 645 && my <= 720){
             qchoose = choose;
-            return 8;//ÍË³öQuitgraph()
+            return 8;//é€€å‡ºQuitgraph()
         }
     }
 }
 
-//×ó²à²Ëµ¥ÁĞ±í
+//å·¦ä¾§èœå•åˆ—è¡¨
 void menu(int n){
     cleardevice();
     setlinecolor(RGB(50, 100, 200));
@@ -86,37 +84,37 @@ void menu(int n){
     IMAGE ah;
     loadimage(&ah,R"(.\ahu.jpg)", 180, 55, false);
     putimage(870, 5, &ah);
-    ot(20,60,WHITE,20,0,"ËùÓĞÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    ot(20,150,WHITE,20,0,"Ìí¼ÓÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    ot(20,240,WHITE,20,0,"²éÕÒÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    ot(20,330,WHITE,20,0,"Í³¼Æ¿Î³ÌĞÅÏ¢", "ËÎÌå");
-    ot(20,420,WHITE,20,0,"ĞŞ¸ÄÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    ot(20,510,WHITE,20,0,"É¾³ıÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    ot(55,600,WHITE,20,0,"ÉèÖÃ", "ËÎÌå");
-    ot(55,680,WHITE,20,0,"ÍË³ö", "ËÎÌå");
+    ot(20,60,WHITE,20,0,"æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    ot(20,150,WHITE,20,0,"æ·»åŠ å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    ot(20,240,WHITE,20,0,"æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    ot(20,330,WHITE,20,0,"ç»Ÿè®¡è¯¾ç¨‹ä¿¡æ¯", "å®‹ä½“");
+    ot(20,420,WHITE,20,0,"ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    ot(20,510,WHITE,20,0,"åˆ é™¤å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    ot(55,600,WHITE,20,0,"è®¾ç½®", "å®‹ä½“");
+    ot(55,680,WHITE,20,0,"é€€å‡º", "å®‹ä½“");
 }
 
-//²Ëµ¥¶¯»­
+//èœå•åŠ¨ç”»
 void menuanimation(int mx, int my, int n){
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 25 && msg.y <= 115 && n != 1) ot(20,60,YELLOW,20,0,"ËùÓĞÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    else ot(20,60,WHITE,20,0,"ËùÓĞÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 115 && msg.y <= 205 && n != 2) ot(20,150,YELLOW,20,0,"Ìí¼ÓÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    else ot(20,150,WHITE,20,0,"Ìí¼ÓÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 205 && msg.y <= 295 && n != 3) ot(20,240,YELLOW,20,0,"²éÕÒÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    else ot(20,240,WHITE,20,0,"²éÕÒÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 295 && msg.y <= 385 && n != 4) ot(20,330,YELLOW,20,0,"Í³¼Æ¿Î³ÌĞÅÏ¢", "ËÎÌå");
-    else ot(20,330,WHITE,20,0,"Í³¼Æ¿Î³ÌĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 385 && msg.y <= 475 && n != 5) ot(20,420,YELLOW,20,0,"ĞŞ¸ÄÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    else ot(20,420,WHITE,20,0,"ĞŞ¸ÄÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 475 && msg.y <= 565 && n != 6) ot(20,510,YELLOW,20,0,"É¾³ıÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    else ot(20,510,WHITE,20,0,"É¾³ıÑ§ÉúĞÅÏ¢", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 565 && msg.y <= 645 && n != 7) ot(55,600,YELLOW,20,0,"ÉèÖÃ", "ËÎÌå");
-    else ot(55,600,WHITE,20,0,"ÉèÖÃ", "ËÎÌå");
-    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 645 && msg.y <= 720 && n != 8) ot(55,680,YELLOW,20,0,"ÍË³ö", "ËÎÌå");
-    else ot(55,680,WHITE,20,0,"ÍË³ö", "ËÎÌå");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 25 && msg.y <= 115 && n != 1) ot(20,60,YELLOW,20,0,"æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    else ot(20,60,WHITE,20,0,"æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 115 && msg.y <= 205 && n != 2) ot(20,150,YELLOW,20,0,"æ·»åŠ å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    else ot(20,150,WHITE,20,0,"æ·»åŠ å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 205 && msg.y <= 295 && n != 3) ot(20,240,YELLOW,20,0,"æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    else ot(20,240,WHITE,20,0,"æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 295 && msg.y <= 385 && n != 4) ot(20,330,YELLOW,20,0,"ç»Ÿè®¡è¯¾ç¨‹ä¿¡æ¯", "å®‹ä½“");
+    else ot(20,330,WHITE,20,0,"ç»Ÿè®¡è¯¾ç¨‹ä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 385 && msg.y <= 475 && n != 5) ot(20,420,YELLOW,20,0,"ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    else ot(20,420,WHITE,20,0,"ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 475 && msg.y <= 565 && n != 6) ot(20,510,YELLOW,20,0,"åˆ é™¤å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    else ot(20,510,WHITE,20,0,"åˆ é™¤å­¦ç”Ÿä¿¡æ¯", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 565 && msg.y <= 645 && n != 7) ot(55,600,YELLOW,20,0,"è®¾ç½®", "å®‹ä½“");
+    else ot(55,600,WHITE,20,0,"è®¾ç½®", "å®‹ä½“");
+    if(msg.x >= 0 && msg.x <= 170 && msg.y >= 645 && msg.y <= 720 && n != 8) ot(55,680,YELLOW,20,0,"é€€å‡º", "å®‹ä½“");
+    else ot(55,680,WHITE,20,0,"é€€å‡º", "å®‹ä½“");
 }
 
-//ÊäÈëºÏ·¨ĞÔ¼ì²é
+//è¾“å…¥åˆæ³•æ€§æ£€æŸ¥
 bool check(char ch[]){
     bool flag = false;
     for (int i = 0; i < strlen(ch); ++i) {
@@ -129,24 +127,24 @@ bool check(char ch[]){
     else return false;
 }
 
-//²éÕÒÑ§ÉúĞÅÏ¢
+//æŸ¥æ‰¾å­¦ç”Ÿä¿¡æ¯
 void SearchStudent() {
     menu(3);
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(BLACK);
     fillroundrect(270, 60, 660, 100, 10, 10);
-    ot(280, 70, WHITE, 20, 0, "ÇëÊäÈëÑ§ºÅ»òĞÕÃû£º", "ËÎÌå");
+    ot(280, 70, WHITE, 20, 0, "è¯·è¾“å…¥å­¦å·æˆ–å§“åï¼š", "å®‹ä½“");
     fillroundrect(680, 60, 780, 100, 10, 10);
-    ot(710, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
-    //²Ëµ¥ºÍ½çÃæ»æÖÆ
+    ot(710, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
+    //èœå•å’Œç•Œé¢ç»˜åˆ¶
 
-    string input = "No_Input_Information";//ÊäÈë×Ö·û´®³õÊ¼»¯
+    string input = "No_Input_Information";//è¾“å…¥å­—ç¬¦ä¸²åˆå§‹åŒ–
     char cinput[100];
     while(true){
         msg = getmessage(EM_MOUSE);
-        menuanimation(msg.x, msg.y, 3);//²Ëµ¥¶¯»­
+        menuanimation(msg.x, msg.y, 3);//èœå•åŠ¨ç”»
 
-        button_animation(msg, 680, 60, 780, 100, WHITE, RGB(50, 100, 200));//°´Å¥¶¯»­
+        button_animation(msg, 680, 60, 780, 100, WHITE, RGB(50, 100, 200));//æŒ‰é’®åŠ¨ç”»
 
         if(msg.x >= 460 && msg.x <= 655 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(200, 200, 200));
@@ -155,12 +153,12 @@ void SearchStudent() {
             setfillcolor(WHITE);
             solidroundrect(460, 65, 655, 95, 10, 10);
         }
-        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "ËÎÌå");
-        //ÏÔÊ¾ÊäÈëĞÅÏ¢
+        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "å®‹ä½“");
+        //æ˜¾ç¤ºè¾“å…¥ä¿¡æ¯
 
         switch (msg.message) {
             case WM_LBUTTONDOWN:{
-                //½çÃæÌø×ª
+                //ç•Œé¢è·³è½¬
                 if (msg.x >= 0 && msg.x <= 170 && msg.y >= 25 && msg.y <= 720) {
                     choose = choosegraph(msg.x, msg.y);
                     if (choose != 3) {
@@ -169,9 +167,9 @@ void SearchStudent() {
                     }
                 }
 
-                //ÊäÈëÑ§ÉúÑ§ºÅ/ĞÕÃû£¬Èç¹ûÕÒµ½±ãÊä³öĞÅÏ¢£¬Àú±ésºóÎ´ÕÒµ½±ã±¨´í
+                //è¾“å…¥å­¦ç”Ÿå­¦å·/å§“åï¼Œå¦‚æœæ‰¾åˆ°ä¾¿è¾“å‡ºä¿¡æ¯ï¼Œå†ésåæœªæ‰¾åˆ°ä¾¿æŠ¥é”™
                 if(msg.x >= 460 && msg.x <= 655 && msg.y >= 65 && msg.y <= 95) {
-                    InputBox(cinput, 100, "ÊäÈëÑ§ÉúÑ§ºÅ/ĞÕÃû");
+                    InputBox(cinput, 100, "è¾“å…¥å­¦ç”Ÿå­¦å·/å§“å");
                     input = cinput;
                 }
                 if(msg.x >= 680 && msg.x <= 780 && msg.y >= 60 && msg.y <= 100){
@@ -180,14 +178,14 @@ void SearchStudent() {
                     for (auto & i : s) {
                         if(i.id == input || i.name == input){
                             find = true;
-                            ot(270, 130, BLACK, 20, 0, "²éÑ¯³É¹¦£¬Ñ§ÉúĞÅÏ¢ÈçÏÂ£º", "ËÎÌå");
+                            ot(270, 130, BLACK, 20, 0, "æŸ¥è¯¢æˆåŠŸï¼Œå­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š", "å®‹ä½“");
                             input = "No_Input_Information";
                             char output[1000];
                             setlinecolor(BLACK);
                             line(270, 160, 970, 160);
                             line(270, 200, 970, 200);
-                            sprintf(output, "%s%s      %s%s     %s%s", "Ñ§ºÅ£º", i.id.c_str(), "ĞÕÃû£º", i.name.c_str(), "ĞÔ±ğ£º", i.gender.c_str());
-                            ot(280, 170, BLACK, 20, 0, output, "ËÎÌå");
+                            sprintf(output, "%s%s      %s%s     %s%s", "å­¦å·ï¼š", i.id.c_str(), "å§“åï¼š", i.name.c_str(), "æ€§åˆ«ï¼š", i.gender.c_str());
+                            ot(280, 170, BLACK, 20, 0, output, "å®‹ä½“");
                             line(620, 200, 620, 200 + (lessonNumber + 1) / 2 * 40);
                             for (int j = 0; j < lessonNumber; ++j) {
                                 char les[100];
@@ -195,18 +193,18 @@ void SearchStudent() {
                                 sprintf(les, "%s", lessonList[j].c_str());
                                 sprintf(les_score, "%.2lf", i.ls[j]);
                                 if(j % 2 == 0){
-                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                 }else{
-                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                 }
                             }
                         }
                     }
                     if(!find){
                         HWND er = GetHWnd();
-                        MessageBox(er, "Î´ÕÒµ½¸ÃÑ§Éú£¬ÇëÈ·ÈÏĞÅÏ¢ÊäÈëÊÇ·ñÕıÈ·", "´íÎó", MB_OK);
+                        MessageBox(er, "æœªæ‰¾åˆ°è¯¥å­¦ç”Ÿï¼Œè¯·ç¡®è®¤ä¿¡æ¯è¾“å…¥æ˜¯å¦æ­£ç¡®", "é”™è¯¯", MB_OK);
                         input = "No_Input_Information";
                     }
                 }
@@ -215,18 +213,18 @@ void SearchStudent() {
     }
 }
 
-//Ìí¼ÓÑ§ÉúĞÅÏ¢
+//æ·»åŠ å­¦ç”Ÿä¿¡æ¯
 void AddStudent() {
     menu(2);
     char xh[20] = " ", xm[100] = " ", xb[10] = " ", cj[30][10] = {};
     setlinecolor(BLACK);
     setfillcolor(RGB(50, 100, 200));
     fillroundrect(280, 60, 655, 100, 10, 10);
-    ot(290, 72, WHITE, 20, 0, "Ñ§ÉúÑ§ºÅ:", "ËÎÌå");
+    ot(290, 72, WHITE, 20, 0, "å­¦ç”Ÿå­¦å·:", "å®‹ä½“");
     fillroundrect(280, 120, 655, 160, 10, 10);
-    ot(290, 132, WHITE, 20, 0, "Ñ§ÉúĞÕÃû:", "ËÎÌå");
+    ot(290, 132, WHITE, 20, 0, "å­¦ç”Ÿå§“å:", "å®‹ä½“");
     fillroundrect(280, 180, 655, 220, 10, 10);
-    ot(290, 192, WHITE, 20, 0, "Ñ§ÉúĞÔ±ğ:", "ËÎÌå");
+    ot(290, 192, WHITE, 20, 0, "å­¦ç”Ÿæ€§åˆ«:", "å®‹ä½“");
     if(lessonNumber <= 10)
         fillroundrect(280, 240, 675, 280 + (lessonNumber) * 35, 10, 10);
     else{
@@ -234,14 +232,14 @@ void AddStudent() {
         fillroundrect(685, 240, 1075, 245 + (lessonNumber - 10) * 35, 10, 10);
     }
 
-    ot(290, 252, WHITE, 20, 0, "Ñ§Éú³É¼¨:  ×Ü·Ö£º", "ËÎÌå");
+    ot(290, 252, WHITE, 20, 0, "å­¦ç”Ÿæˆç»©:  æ€»åˆ†ï¼š", "å®‹ä½“");
     fillroundrect(675, 60, 785, 100, 10, 10);
-    ot(690, 72, WHITE, 20, 0, "È·ÈÏÌí¼Ó", "ËÎÌå");
+    ot(690, 72, WHITE, 20, 0, "ç¡®è®¤æ·»åŠ ", "å®‹ä½“");
     fillroundrect(675, 120, 785, 160, 10, 10);
-    ot(708, 132, WHITE, 20, 0, "ÖØÖÃ", "ËÎÌå");
-    //½çÃæ»æÖÆ
+    ot(708, 132, WHITE, 20, 0, "é‡ç½®", "å®‹ä½“");
+    //ç•Œé¢ç»˜åˆ¶
 
-    //³õÊ¼»¯ÁÙÊ±½Úµãt
+    //åˆå§‹åŒ–ä¸´æ—¶èŠ‚ç‚¹t
     stu t;
     for (int i = 0; i < lessonNumber; ++i) {
         t.ls[i] = -1;
@@ -265,7 +263,7 @@ void AddStudent() {
         sprintf(tscore, "%.2lf", t.score);
         setfillcolor(WHITE);
         solidroundrect(495, 245, 670, 275, 10, 10);
-        ot(505, 250, BLACK, 20, 0, tscore, "ËÎÌå");
+        ot(505, 250, BLACK, 20, 0, tscore, "å®‹ä½“");
         if(msg.x >= 400 && msg.x <= 650 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(200, 200, 200));
             solidroundrect(400, 65, 650, 95, 10, 10);
@@ -273,7 +271,7 @@ void AddStudent() {
             setfillcolor(WHITE);
             solidroundrect(400, 65, 650, 95, 10, 10);
         }
-        if(t.id != "No_Input_id") ot(410, 72, BLACK, 20, 0, tid, "ËÎÌå");
+        if(t.id != "No_Input_id") ot(410, 72, BLACK, 20, 0, tid, "å®‹ä½“");
 
         if(msg.x >= 400 && msg.x <= 650 && msg.y >= 125 && msg.y <= 155){
             setfillcolor(RGB(200, 200, 200));
@@ -282,7 +280,7 @@ void AddStudent() {
             setfillcolor(WHITE);
             solidroundrect(400, 125, 650, 155, 10, 10);
         }
-        if(t.name != "No_Input_name") ot(410, 132, BLACK, 20, 0, tname, "ËÎÌå");
+        if(t.name != "No_Input_name") ot(410, 132, BLACK, 20, 0, tname, "å®‹ä½“");
 
         if(msg.x >= 400 && msg.x <= 520 && msg.y >= 185 && msg.y <= 215 && !male){
             setfillcolor(RGB(200, 200, 200));
@@ -291,7 +289,7 @@ void AddStudent() {
             setfillcolor(WHITE);
             solidroundrect(400, 185, 520, 215, 10, 10);
         }
-        ot(450, 190, BLACK, 20, 0, "ÄĞ", "ËÎÌå");
+        ot(450, 190, BLACK, 20, 0, "ç”·", "å®‹ä½“");
         if(msg.x >= 530 && msg.x <= 650 && msg.y >= 185 && msg.y <= 215 && !female){
             setfillcolor(RGB(200, 200, 200));
             solidroundrect(530, 185, 650, 215, 10, 10);
@@ -299,19 +297,19 @@ void AddStudent() {
             setfillcolor(WHITE);
             solidroundrect(530, 185, 650, 215, 10, 10);
         }
-        ot(580, 190, BLACK, 20, 0, "Å®", "ËÎÌå");
+        ot(580, 190, BLACK, 20, 0, "å¥³", "å®‹ä½“");
 
         if(male){
             setfillcolor(RGB(180, 180, 180));
             solidroundrect(400, 185, 520, 215, 10, 10);
-            ot(450, 190, BLACK, 20, 0, "ÄĞ", "ËÎÌå");
+            ot(450, 190, BLACK, 20, 0, "ç”·", "å®‹ä½“");
         }
         if(female){
             setfillcolor(RGB(180, 180, 180));
             solidroundrect(530, 185, 650, 215, 10, 10);
-            ot(580, 190, BLACK, 20, 0, "Å®", "ËÎÌå");
+            ot(580, 190, BLACK, 20, 0, "å¥³", "å®‹ä½“");
         }
-        //Ñ¡ÖĞ¶¯»­¼°ÊäÈëĞÅÏ¢Êä³ö
+        //é€‰ä¸­åŠ¨ç”»åŠè¾“å…¥ä¿¡æ¯è¾“å‡º
 
         if(lessonNumber <= 10) {
             for (int i = 0; i < lessonNumber; ++i) {
@@ -326,9 +324,9 @@ void AddStudent() {
                 }
                 if(t.ls[i] >= 0){
                     sprintf(tls[i], "%.2lf", t.ls[i]);
-                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "ËÎÌå");
+                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "å®‹ä½“");
                 }
-                ot(290, 282 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(290, 282 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
         }
         else{
@@ -344,9 +342,9 @@ void AddStudent() {
                 }
                 if(t.ls[i] >= 0){
                     sprintf(tls[i], "%.2lf", t.ls[i]);
-                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "ËÎÌå");
+                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "å®‹ä½“");
                 }
-                ot(290, 282 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(290, 282 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
             for (int i = 0; i < lessonNumber - 10; ++i) {
                 char st[100];
@@ -360,9 +358,9 @@ void AddStudent() {
                 }
                 if(t.ls[i + 10] >= 0){
                     sprintf(tls[i + 10], "%.2lf", t.ls[i + 10]);
-                    ot(840, 250 + i * 35, BLACK, 20, 0, tls[i + 10], "ËÎÌå");
+                    ot(840, 250 + i * 35, BLACK, 20, 0, tls[i + 10], "å®‹ä½“");
                 }
-                ot(690, 247 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(690, 247 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
         }
 
@@ -375,17 +373,17 @@ void AddStudent() {
                         return;
                     }
                 }
-                //ºÍÒÑÓĞÑ§ÉúÖØ¸´Ê±±¨´í
+                //å’Œå·²æœ‰å­¦ç”Ÿé‡å¤æ—¶æŠ¥é”™
                 if(msg.x >= 400 && msg.x <= 650 && msg.y >= 65 && msg.y <= 95){
                     char txh[100];
-                    InputBox(txh, 100, "ÇëÊäÈëÑ§ÉúÑ§ºÅ");
+                    InputBox(txh, 100, "è¯·è¾“å…¥å­¦ç”Ÿå­¦å·");
                     bool exist = false;
                     for (auto & i : s) {
                         if(i.id == txh){
                             HWND er = GetHWnd();
                             char txs[100];
-                            sprintf(txs, "´íÎó£¬¸ÃÑ§ÉúÒÑ´æÔÚ£º\n%s %s", i.id.c_str(), i.name.c_str());
-                            MessageBox(er, txs, "´íÎó", MB_OK);
+                            sprintf(txs, "é”™è¯¯ï¼Œè¯¥å­¦ç”Ÿå·²å­˜åœ¨ï¼š\n%s %s", i.id.c_str(), i.name.c_str());
+                            MessageBox(er, txs, "é”™è¯¯", MB_OK);
                             exist = true;
                             break;
                         }
@@ -396,14 +394,14 @@ void AddStudent() {
                 }
                 if(msg.x >= 400 && msg.x <= 650 && msg.y >= 125 && msg.y <= 155){
                     char txm[100];
-                    InputBox(txm, 100, "ÇëÊäÈëÑ§ÉúĞÕÃû");
+                    InputBox(txm, 100, "è¯·è¾“å…¥å­¦ç”Ÿå§“å");
                     bool exist = false;
                     for (auto & i : s) {
                         if(i.name == txm){
                             HWND er = GetHWnd();
                             char txs[100];
-                            sprintf(txs, "´íÎó£¬¸ÃÑ§ÉúÒÑ´æÔÚ£º\n%s %s", i.id.c_str(), i.name.c_str());
-                            MessageBox(er, txs, "´íÎó", MB_OK);
+                            sprintf(txs, "é”™è¯¯ï¼Œè¯¥å­¦ç”Ÿå·²å­˜åœ¨ï¼š\n%s %s", i.id.c_str(), i.name.c_str());
+                            MessageBox(er, txs, "é”™è¯¯", MB_OK);
                             exist = true;
                             break;
                         }
@@ -415,28 +413,28 @@ void AddStudent() {
                 if(msg.x >= 400 && msg.x <= 520 && msg.y >= 185 && msg.y <= 215){
                     male = true;
                     female = false;
-                    t.gender = "ÄĞ";
+                    t.gender = "ç”·";
                 }
                 if(msg.x >= 530 && msg.x <= 650 && msg.y >= 185 && msg.y <= 215){
                     female = true;
                     male = false;
-                    t.gender = "Å®";
+                    t.gender = "å¥³";
                 }
-                //ÊäÈë²»ºÏ·¨Ê±±¨´í£¬ÆäËûÇé¿öÕı³£´æÈë
+                //è¾“å…¥ä¸åˆæ³•æ—¶æŠ¥é”™ï¼Œå…¶ä»–æƒ…å†µæ­£å¸¸å­˜å…¥
                 if(lessonNumber <= 10){
                     for (int i = 0; i < lessonNumber; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i].c_str(), " æˆç»©");
                         if (msg.x >= 430 && msg.x <= 670 && msg.y >= 280 + i * 35 && msg.y <= 310 + i * 35){
                             InputBox(tls[i], 100, st);
                             if(!check(tls[i])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i]) < 0 || stod(tls[i]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i] = -1;
                                 break;
                             }
@@ -449,17 +447,17 @@ void AddStudent() {
                 else{
                     for (int i = 0; i < lessonNumber; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i].c_str(), " æˆç»©");
                         if (msg.x >= 430 && msg.x <= 670 && msg.y >= 280 + i * 35 && msg.y <= 310 + i * 35){
                             InputBox(tls[i], 100, st);
                             if(!check(tls[i])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i]) < 0 || stod(tls[i]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i] = -1;
                                 break;
                             }
@@ -470,17 +468,17 @@ void AddStudent() {
                     }
                     for (int i = 0; i < lessonNumber - 10; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i + 10].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i + 10].c_str(), " æˆç»©");
                         if (msg.x >= 830 && msg.x <= 1070 && msg.y >= 245 + i * 35 && msg.y <= 275 + i * 35){
                             InputBox(tls[i + 10], 100, st);
                             if(!check(tls[i + 10])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i + 10]) < 0 || stod(tls[i + 10]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i + 10] = -1;
                             }
                             t.score -= max(t.ls[i + 10], double(0));
@@ -490,7 +488,7 @@ void AddStudent() {
                     }
                 }
 
-                //Èç¹ûÓĞÎ´ÌîĞ´ĞÅÏ¢¼´±¨´í£¬Ã»ÓĞÔò½«t´æÈës²¢³õÊ¼»¯t
+                //å¦‚æœæœ‰æœªå¡«å†™ä¿¡æ¯å³æŠ¥é”™ï¼Œæ²¡æœ‰åˆ™å°†tå­˜å…¥så¹¶åˆå§‹åŒ–t
                 if(msg.x >= 675 && msg.x <= 785 && msg.y >= 60 && msg.y <= 100){
                     bool all = false;
                     if(t.id == "No_Input_id" || t.name == "No_Input_name" || t.gender == "No_Input_gender") all = true;
@@ -502,11 +500,11 @@ void AddStudent() {
                     }
                     if(all) {
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÓĞĞÅÏ¢Î´ÌîĞ´", "´íÎó", MB_OK);
+                        MessageBox(er, "æœ‰ä¿¡æ¯æœªå¡«å†™", "é”™è¯¯", MB_OK);
                     }
                     else{
                         HWND res = GetHWnd();
-                        MessageBox(res, "Ìí¼Ó³É¹¦", "ÌáÊ¾", MB_OK);
+                        MessageBox(res, "æ·»åŠ æˆåŠŸ", "æç¤º", MB_OK);
                         s.push_back(t);
                         for (int i = 0; i < lessonNumber; ++i) {
                             t.ls[i] = -1;
@@ -520,7 +518,7 @@ void AddStudent() {
                     }
                 }
 
-                //ÖØÖÃ°´Å¥£¬³õÊ¼»¯t
+                //é‡ç½®æŒ‰é’®ï¼Œåˆå§‹åŒ–t
                 if(msg.x >= 675 && msg.x <= 785 && msg.y >= 120 && msg.y <= 160){
                     for (int i = 0; i < lessonNumber; ++i) {
                         t.ls[i] = -1;
@@ -532,26 +530,26 @@ void AddStudent() {
                     male = false;
                     female = false;
                     HWND res = GetHWnd();
-                    MessageBox(res, "ÒÑÖØÖÃ", "ÌáÊ¾", MB_OK);
+                    MessageBox(res, "å·²é‡ç½®", "æç¤º", MB_OK);
                 }
             }
         }
     }
 }
 
-//É¾³ıÑ§ÉúĞÅÏ¢
+//åˆ é™¤å­¦ç”Ÿä¿¡æ¯
 void DelStudent() {
     menu(6);
 
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(BLACK);
     fillroundrect(270, 60, 660, 100, 10, 10);
-    ot(280, 70, WHITE, 20, 0, "ÇëÊäÈëÑ§ºÅ»òĞÕÃû£º", "ËÎÌå");
+    ot(280, 70, WHITE, 20, 0, "è¯·è¾“å…¥å­¦å·æˆ–å§“åï¼š", "å®‹ä½“");
     fillroundrect(680, 60, 780, 100, 10, 10);
-    ot(690, 70, WHITE, 20, 0, "É¾³ıÑ§Éú", "ËÎÌå");
-    //»æÖÆ½çÃæ
+    ot(690, 70, WHITE, 20, 0, "åˆ é™¤å­¦ç”Ÿ", "å®‹ä½“");
+    //ç»˜åˆ¶ç•Œé¢
 
-    //Ç°Ò»²¿·ÖÍ¬²éÕÒÑ§Éú
+    //å‰ä¸€éƒ¨åˆ†åŒæŸ¥æ‰¾å­¦ç”Ÿ
     string input = "No_Input_Information";
     char cinput[100] = "No_Input";
     while(true){
@@ -566,7 +564,7 @@ void DelStudent() {
             setfillcolor(WHITE);
             solidroundrect(460, 65, 655, 95, 10, 10);
         }
-        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "ËÎÌå");
+        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "å®‹ä½“");
 
         switch (msg.message) {
             case WM_LBUTTONDOWN:{
@@ -579,22 +577,22 @@ void DelStudent() {
                 }
 
                 if(msg.x >= 460 && msg.x <= 655 && msg.y >= 65 && msg.y <= 95) {
-                    InputBox(cinput, 100, "ÊäÈëÑ§ÉúÑ§ºÅ/ĞÕÃû");
+                    InputBox(cinput, 100, "è¾“å…¥å­¦ç”Ÿå­¦å·/å§“å");
                     input = cinput;
                     clearrectangle(270, 130, 970, 720);
                     bool find = false;
                     for (auto &i: s) {
                         if (i.id == input || i.name == input) {
                             find = true;
-                            ot(270, 130, BLACK, 20, 0, "µ±Ç°Ñ§ÉúĞÅÏ¢ÈçÏÂ£º", "ËÎÌå");
+                            ot(270, 130, BLACK, 20, 0, "å½“å‰å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š", "å®‹ä½“");
                             input = "No_Input_Information";
                             char output[1000];
                             setlinecolor(BLACK);
                             line(270, 160, 970, 160);
                             line(270, 200, 970, 200);
-                            sprintf(output, "%s%s      %s%s     %s%s", "Ñ§ºÅ£º", i.id.c_str(), "ĞÕÃû£º", i.name.c_str(),
-                                    "ĞÔ±ğ£º", i.gender.c_str());
-                            ot(280, 170, BLACK, 20, 0, output, "ËÎÌå");
+                            sprintf(output, "%s%s      %s%s     %s%s", "å­¦å·ï¼š", i.id.c_str(), "å§“åï¼š", i.name.c_str(),
+                                    "æ€§åˆ«ï¼š", i.gender.c_str());
+                            ot(280, 170, BLACK, 20, 0, output, "å®‹ä½“");
                             line(620, 200, 620, 200 + (lessonNumber + 1) / 2 * 40);
                             for (int j = 0; j < lessonNumber; ++j) {
                                 char les[100];
@@ -602,23 +600,23 @@ void DelStudent() {
                                 sprintf(les, "%s", lessonList[j].c_str());
                                 sprintf(les_score, "%.2lf", i.ls[j]);
                                 if (j % 2 == 0) {
-                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                 } else {
-                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                 }
                             }
                         }
                     }
                     if (!find) {
                         HWND er = GetHWnd();
-                        MessageBox(er, "Î´ÕÒµ½Ñ§Éú£¬ÇëÈ·ÈÏĞÅÏ¢ÊäÈëÊÇ·ñÕıÈ·", "´íÎó", MB_OK);
+                        MessageBox(er, "æœªæ‰¾åˆ°å­¦ç”Ÿï¼Œè¯·ç¡®è®¤ä¿¡æ¯è¾“å…¥æ˜¯å¦æ­£ç¡®", "é”™è¯¯", MB_OK);
                         input = "No_Input_Information";
                     }
                 }
 
-                //µ±µã»÷¡°É¾³ıÑ§Éú¡±Ê±£¬µ¯³ö¶ş¼¶´°¿ÚÑ¯ÎÊ£¬Ñ¡ÔñÈ¡ÏûÔòÇå¿Õ½çÃæ²¢ÖØĞÂ»æÖÆ´°¿Ú£¬ÖØĞÂÏÔÊ¾Ñ§ÉúĞÅÏ¢£¬Ñ¡ÔñÈ·ÈÏ¼´´ÓsÖĞÒÆ³ı´Ë½Úµã
+                //å½“ç‚¹å‡»â€œåˆ é™¤å­¦ç”Ÿâ€æ—¶ï¼Œå¼¹å‡ºäºŒçº§çª—å£è¯¢é—®ï¼Œé€‰æ‹©å–æ¶ˆåˆ™æ¸…ç©ºç•Œé¢å¹¶é‡æ–°ç»˜åˆ¶çª—å£ï¼Œé‡æ–°æ˜¾ç¤ºå­¦ç”Ÿä¿¡æ¯ï¼Œé€‰æ‹©ç¡®è®¤å³ä»sä¸­ç§»é™¤æ­¤èŠ‚ç‚¹
                 if(msg.x >= 680 && msg.x <= 780 && msg.y >= 60 && msg.y <= 100){
                     setlinecolor(RGB(50, 100, 200));
                     setfillcolor(RGB(50, 100, 200));
@@ -629,9 +627,9 @@ void DelStudent() {
                     setlinecolor(BLACK);
                     fillroundrect(510, 290, 710, 330, 10, 10);
                     fillroundrect(510, 340, 710, 380, 10, 10);
-                    ot(510, 245, WHITE, 20, 0, "È·ÈÏÉ¾³ı¸ÃÑ§Éú£¿", "ËÎÌå");
-                    ot(570, 300, WHITE, 20, 0, "È·ÈÏÉ¾³ı", "ËÎÌå");
-                    ot(590, 350, WHITE, 20, 0, "È¡Ïû", "ËÎÌå");
+                    ot(510, 245, WHITE, 20, 0, "ç¡®è®¤åˆ é™¤è¯¥å­¦ç”Ÿï¼Ÿ", "å®‹ä½“");
+                    ot(570, 300, WHITE, 20, 0, "ç¡®è®¤åˆ é™¤", "å®‹ä½“");
+                    ot(590, 350, WHITE, 20, 0, "å–æ¶ˆ", "å®‹ä½“");
                     flushmessage(EM_MOUSE);
                     bool ewhile = false;
                     while(true){
@@ -651,7 +649,7 @@ void DelStudent() {
                                             input = "No_Input_Information";
                                             s.erase(p);
                                             HWND res = GetHWnd();
-                                            MessageBox(res, "ÒÑÉ¾³ı¸ÃÑ§Éú", "ÌáÊ¾", MB_OK);
+                                            MessageBox(res, "å·²åˆ é™¤è¯¥å­¦ç”Ÿ", "æç¤º", MB_OK);
                                             choose = 6;
                                             return;
                                         }
@@ -666,15 +664,15 @@ void DelStudent() {
                                     for (auto &i: s) {
                                         if (i.id == input || i.name == input) {
                                             find = true;
-                                            ot(270, 130, BLACK, 20, 0, "µ±Ç°Ñ§ÉúĞÅÏ¢ÈçÏÂ£º", "ËÎÌå");
+                                            ot(270, 130, BLACK, 20, 0, "å½“å‰å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼š", "å®‹ä½“");
                                             input = "No_Input_Information";
                                             char output[1000];
                                             setlinecolor(BLACK);
                                             line(270, 160, 970, 160);
                                             line(270, 200, 970, 200);
-                                            sprintf(output, "%s%s      %s%s     %s%s", "Ñ§ºÅ£º", i.id.c_str(), "ĞÕÃû£º", i.name.c_str(),
-                                                    "ĞÔ±ğ£º", i.gender.c_str());
-                                            ot(280, 170, BLACK, 20, 0, output, "ËÎÌå");
+                                            sprintf(output, "%s%s      %s%s     %s%s", "å­¦å·ï¼š", i.id.c_str(), "å§“åï¼š", i.name.c_str(),
+                                                    "æ€§åˆ«ï¼š", i.gender.c_str());
+                                            ot(280, 170, BLACK, 20, 0, output, "å®‹ä½“");
                                             line(620, 200, 620, 200 + (lessonNumber + 1) / 2 * 40);
                                             for (int j = 0; j < lessonNumber; ++j) {
                                                 char les[100];
@@ -682,11 +680,11 @@ void DelStudent() {
                                                 sprintf(les, "%s", lessonList[j].c_str());
                                                 sprintf(les_score, "%.2lf", i.ls[j]);
                                                 if (j % 2 == 0) {
-                                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                                    ot(280, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                                    ot(470, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                                 } else {
-                                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "ËÎÌå");
-                                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "ËÎÌå");
+                                                    ot(630, 210 + j / 2 * 40, BLACK, 20, 0, les, "å®‹ä½“");
+                                                    ot(820, 210 + j / 2 * 40, BLACK, 20, 0, les_score, "å®‹ä½“");
                                                 }
                                             }
                                         }
@@ -702,22 +700,22 @@ void DelStudent() {
     }
 }
 
-//ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+//ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
 void ChangeStudent() {
     menu(5);
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(BLACK);
     fillroundrect(280, 60, 655, 100, 10, 10);
-    ot(290, 70, WHITE, 20, 0, "ÇëÊäÈëÑ§ºÅ»òĞÕÃû£º", "ËÎÌå");
+    ot(290, 70, WHITE, 20, 0, "è¯·è¾“å…¥å­¦å·æˆ–å§“åï¼š", "å®‹ä½“");
     fillroundrect(675, 60, 785, 100, 10, 10);
-    ot(710, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+    ot(710, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
     char xh[20] = " ", xm[100] = " ", xb[10] = " ", cj[30][10] = {};
     fillroundrect(280, 120, 655, 160, 10, 10);
-    ot(290, 132, WHITE, 20, 0, "Ñ§ÉúÑ§ºÅ:", "ËÎÌå");
+    ot(290, 132, WHITE, 20, 0, "å­¦ç”Ÿå­¦å·:", "å®‹ä½“");
     fillroundrect(675, 120, 1040, 160, 10, 10);
-    ot(685, 132, WHITE, 20, 0, "Ñ§ÉúĞÕÃû:", "ËÎÌå");
+    ot(685, 132, WHITE, 20, 0, "å­¦ç”Ÿå§“å:", "å®‹ä½“");
     fillroundrect(280, 180, 655, 220, 10, 10);
-    ot(290, 192, WHITE, 20, 0, "Ñ§ÉúĞÔ±ğ:", "ËÎÌå");
+    ot(290, 192, WHITE, 20, 0, "å­¦ç”Ÿæ€§åˆ«:", "å®‹ä½“");
     if(lessonNumber <= 10)
         fillroundrect(280, 240, 675, 280 + (lessonNumber) * 35, 10, 10);
     else{
@@ -725,11 +723,11 @@ void ChangeStudent() {
         fillroundrect(685, 240, 1075, 245 + (lessonNumber - 10) * 35, 10, 10);
     }
 
-    ot(290, 252, WHITE, 20, 0, "Ñ§Éú³É¼¨:  ×Ü·Ö£º", "ËÎÌå");
+    ot(290, 252, WHITE, 20, 0, "å­¦ç”Ÿæˆç»©:  æ€»åˆ†ï¼š", "å®‹ä½“");
     fillroundrect(675, 180, 785, 220, 10, 10);
-    ot(690, 192, WHITE, 20, 0, "±£´æĞŞ¸Ä", "ËÎÌå");
+    ot(690, 192, WHITE, 20, 0, "ä¿å­˜ä¿®æ”¹", "å®‹ä½“");
     fillroundrect(805, 180, 915, 220, 10, 10);
-    ot(835, 192, WHITE, 20, 0, "ÖØÖÃ", "ËÎÌå");
+    ot(835, 192, WHITE, 20, 0, "é‡ç½®", "å®‹ä½“");
 
     string input = "No_Input_Information";
     char cinput[100];
@@ -759,7 +757,7 @@ void ChangeStudent() {
         sprintf(tscore, "%.2lf", t.score);
         setfillcolor(WHITE);
         solidroundrect(495, 245, 670, 275, 10, 10);
-        ot(505, 250, BLACK, 20, 0, tscore, "ËÎÌå");
+        ot(505, 250, BLACK, 20, 0, tscore, "å®‹ä½“");
         if(msg.x >= 400 && msg.x <= 650 && msg.y >= 125 && msg.y <= 155){
             setfillcolor(RGB(200, 200, 200));
             solidroundrect(400, 125, 650, 155, 10, 10);
@@ -767,7 +765,7 @@ void ChangeStudent() {
             setfillcolor(WHITE);
             solidroundrect(400, 125, 650, 155, 10, 10);
         }
-        if(t.id != "No_Input_id") ot(410, 132, BLACK, 20, 0, tid, "ËÎÌå");
+        if(t.id != "No_Input_id") ot(410, 132, BLACK, 20, 0, tid, "å®‹ä½“");
 
         if(msg.x >= 785 && msg.x <= 1035 && msg.y >= 125 && msg.y <= 155){
             setfillcolor(RGB(200, 200, 200));
@@ -776,7 +774,7 @@ void ChangeStudent() {
             setfillcolor(WHITE);
             solidroundrect(785, 125, 1035, 155, 10, 10);
         }
-        if(t.name != "No_Input_name") ot(800, 132, BLACK, 20, 0, tname, "ËÎÌå");
+        if(t.name != "No_Input_name") ot(800, 132, BLACK, 20, 0, tname, "å®‹ä½“");
 
         if(msg.x >= 400 && msg.x <= 520 && msg.y >= 185 && msg.y <= 215 && !male){
             setfillcolor(RGB(200, 200, 200));
@@ -785,7 +783,7 @@ void ChangeStudent() {
             setfillcolor(WHITE);
             solidroundrect(400, 185, 520, 215, 10, 10);
         }
-        ot(450, 190, BLACK, 20, 0, "ÄĞ", "ËÎÌå");
+        ot(450, 190, BLACK, 20, 0, "ç”·", "å®‹ä½“");
         if(msg.x >= 530 && msg.x <= 650 && msg.y >= 185 && msg.y <= 215 && !female){
             setfillcolor(RGB(200, 200, 200));
             solidroundrect(530, 185, 650, 215, 10, 10);
@@ -793,17 +791,17 @@ void ChangeStudent() {
             setfillcolor(WHITE);
             solidroundrect(530, 185, 650, 215, 10, 10);
         }
-        ot(580, 190, BLACK, 20, 0, "Å®", "ËÎÌå");
+        ot(580, 190, BLACK, 20, 0, "å¥³", "å®‹ä½“");
 
         if(male){
             setfillcolor(RGB(180, 180, 180));
             solidroundrect(400, 185, 520, 215, 10, 10);
-            ot(450, 190, BLACK, 20, 0, "ÄĞ", "ËÎÌå");
+            ot(450, 190, BLACK, 20, 0, "ç”·", "å®‹ä½“");
         }
         if(female){
             setfillcolor(RGB(180, 180, 180));
             solidroundrect(530, 185, 650, 215, 10, 10);
-            ot(580, 190, BLACK, 20, 0, "Å®", "ËÎÌå");
+            ot(580, 190, BLACK, 20, 0, "å¥³", "å®‹ä½“");
         }
 
         if(msg.x >= 460 && msg.x <= 650 && msg.y >= 65 && msg.y <= 95){
@@ -813,7 +811,7 @@ void ChangeStudent() {
             setfillcolor(WHITE);
             solidroundrect(460, 65, 650, 95, 10, 10);
         }
-        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "ËÎÌå");
+        if(input != "No_Input_Information") ot(470, 70, BLACK, 20, 0, cinput, "å®‹ä½“");
 
         if(lessonNumber <= 10) {
             for (int i = 0; i < lessonNumber; ++i) {
@@ -828,9 +826,9 @@ void ChangeStudent() {
                 }
                 if(t.ls[i] >= 0){
                     sprintf(tls[i], "%.2lf", t.ls[i]);
-                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "ËÎÌå");
+                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "å®‹ä½“");
                 }
-                ot(290, 282 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(290, 282 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
         }
         else{
@@ -846,9 +844,9 @@ void ChangeStudent() {
                 }
                 if(t.ls[i] >= 0){
                     sprintf(tls[i], "%.2lf", t.ls[i]);
-                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "ËÎÌå");
+                    ot(440, 285 + i * 35, BLACK, 20, 0, tls[i], "å®‹ä½“");
                 }
-                ot(290, 282 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(290, 282 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
             for (int i = 0; i < lessonNumber - 10; ++i) {
                 char st[100];
@@ -862,12 +860,12 @@ void ChangeStudent() {
                 }
                 if(t.ls[i + 10] >= 0){
                     sprintf(tls[i + 10], "%.2lf", t.ls[i + 10]);
-                    ot(840, 250 + i * 35, BLACK, 20, 0, tls[i + 10], "ËÎÌå");
+                    ot(840, 250 + i * 35, BLACK, 20, 0, tls[i + 10], "å®‹ä½“");
                 }
-                ot(690, 247 + i * 35, WHITE, 20, 0, st, "ËÎÌå");
+                ot(690, 247 + i * 35, WHITE, 20, 0, st, "å®‹ä½“");
             }
         }
-        //Ñ¡ÖĞ·´À¡¶¯»­
+        //é€‰ä¸­åé¦ˆåŠ¨ç”»
 
         switch (msg.message) {
             case WM_LBUTTONDOWN:{
@@ -879,9 +877,9 @@ void ChangeStudent() {
                     }
                 }
 
-                //ÊäÈëÑ§ÉúĞÕÃû/Ñ§ºÅ½øĞĞ²éÕÒ£¬ÕÒ²»µ½±¨´í
+                //è¾“å…¥å­¦ç”Ÿå§“å/å­¦å·è¿›è¡ŒæŸ¥æ‰¾ï¼Œæ‰¾ä¸åˆ°æŠ¥é”™
                 if(msg.x >= 460 && msg.x <= 650 && msg.y >= 65 && msg.y <= 95) {
-                    InputBox(cinput, 100, "ÊäÈëÑ§ÉúÑ§ºÅ/ĞÕÃû");
+                    InputBox(cinput, 100, "è¾“å…¥å­¦ç”Ÿå­¦å·/å§“å");
                     input = cinput;
                 }
                 if(msg.x >= 675 && msg.x <= 785 && msg.y >= 60 && msg.y <= 100){
@@ -892,7 +890,7 @@ void ChangeStudent() {
                             find = true;
                             input = "No_Input_Information";
                             t = i;
-                            if(t.gender == "ÄĞ") male = true;
+                            if(t.gender == "ç”·") male = true;
                             else female = true;
                             break;
                         }
@@ -900,21 +898,21 @@ void ChangeStudent() {
                     }
                     if(!find){
                         HWND er = GetHWnd();
-                        MessageBox(er, "Î´ÕÒµ½¸ÃÑ§Éú£¬ÇëÈ·ÈÏĞÅÏ¢ÊäÈëÊÇ·ñÕıÈ·", "´íÎó", MB_OK);
+                        MessageBox(er, "æœªæ‰¾åˆ°è¯¥å­¦ç”Ÿï¼Œè¯·ç¡®è®¤ä¿¡æ¯è¾“å…¥æ˜¯å¦æ­£ç¡®", "é”™è¯¯", MB_OK);
                         input = "No_Input_Information";
                     }
                 }
-                //ĞŞ¸ÄÊ±Âß¼­Í¬Ìí¼ÓÑ§Éú£¬Èç¹ûµ±Ç°Ñ§ºÅ»òĞÕÃûÒÑ´æÔÚ±ã±¨´í
+                //ä¿®æ”¹æ—¶é€»è¾‘åŒæ·»åŠ å­¦ç”Ÿï¼Œå¦‚æœå½“å‰å­¦å·æˆ–å§“åå·²å­˜åœ¨ä¾¿æŠ¥é”™
                 if(msg.x >= 400 && msg.x <= 650 && msg.y >= 125 && msg.y <= 155){
                     char txh[100];
-                    InputBox(txh, 100, "ÇëÊäÈëÑ§ÉúÑ§ºÅ");
+                    InputBox(txh, 100, "è¯·è¾“å…¥å­¦ç”Ÿå­¦å·");
                     bool exist = false;
                     for (auto & i : s) {
                         if(i.id == txh){
                             HWND er = GetHWnd();
                             char txs[100];
-                            sprintf(txs, "´íÎó£¬¸ÃÑ§ÉúÒÑ´æÔÚ£º\n%s %s", i.id.c_str(), i.name.c_str());
-                            MessageBox(er, txs, "´íÎó", MB_OK);
+                            sprintf(txs, "é”™è¯¯ï¼Œè¯¥å­¦ç”Ÿå·²å­˜åœ¨ï¼š\n%s %s", i.id.c_str(), i.name.c_str());
+                            MessageBox(er, txs, "é”™è¯¯", MB_OK);
                             exist = true;
                             break;
                         }
@@ -925,14 +923,14 @@ void ChangeStudent() {
                 }
                 if(msg.x >= 785 && msg.x <= 1035 && msg.y >= 125 && msg.y <= 155){
                     char txm[100];
-                    InputBox(txm, 100, "ÇëÊäÈëÑ§ÉúĞÕÃû");
+                    InputBox(txm, 100, "è¯·è¾“å…¥å­¦ç”Ÿå§“å");
                     bool exist = false;
                     for (auto & i : s) {
                         if(i.name == txm){
                             HWND er = GetHWnd();
                             char txs[100];
-                            sprintf(txs, "´íÎó£¬¸ÃÑ§ÉúÒÑ´æÔÚ£º\n%s %s", i.id.c_str(), i.name.c_str());
-                            MessageBox(er, txs, "´íÎó", MB_OK);
+                            sprintf(txs, "é”™è¯¯ï¼Œè¯¥å­¦ç”Ÿå·²å­˜åœ¨ï¼š\n%s %s", i.id.c_str(), i.name.c_str());
+                            MessageBox(er, txs, "é”™è¯¯", MB_OK);
                             exist = true;
                             break;
                         }
@@ -944,29 +942,29 @@ void ChangeStudent() {
                 if(msg.x >= 400 && msg.x <= 520 && msg.y >= 185 && msg.y <= 215){
                     male = true;
                     female = false;
-                    t.gender = "ÄĞ";
+                    t.gender = "ç”·";
                 }
                 if(msg.x >= 530 && msg.x <= 650 && msg.y >= 185 && msg.y <= 215){
                     female = true;
                     male = false;
-                    t.gender = "Å®";
+                    t.gender = "å¥³";
                 }
 
-                //´æÈëÊı¾İ£¬²»ºÏ·¨Êı¾İ±¨´í
+                //å­˜å…¥æ•°æ®ï¼Œä¸åˆæ³•æ•°æ®æŠ¥é”™
                 if(lessonNumber <= 10){
                     for (int i = 0; i < lessonNumber; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i].c_str(), " æˆç»©");
                         if (msg.x >= 430 && msg.x <= 670 && msg.y >= 280 + i * 35 && msg.y <= 310 + i * 35){
                             InputBox(tls[i], 100, st);
                             if(!check(tls[i])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i]) < 0 || stod(tls[i]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i] = -1;
                                 break;
                             }
@@ -979,17 +977,17 @@ void ChangeStudent() {
                 else{
                     for (int i = 0; i < lessonNumber; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i].c_str(), " æˆç»©");
                         if (msg.x >= 430 && msg.x <= 670 && msg.y >= 280 + i * 35 && msg.y <= 310 + i * 35){
                             InputBox(tls[i], 100, st);
                             if(!check(tls[i])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i]) < 0 || stod(tls[i]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i] = -1;
                                 break;
                             }
@@ -1000,17 +998,17 @@ void ChangeStudent() {
                     }
                     for (int i = 0; i < lessonNumber - 10; ++i) {
                         char st[100];
-                        sprintf(st, "%s%s%s", "ÇëÊäÈë¸ÃÑ§Éú ", lessonList[i + 10].c_str(), " ³É¼¨");
+                        sprintf(st, "%s%s%s", "è¯·è¾“å…¥è¯¥å­¦ç”Ÿ ", lessonList[i + 10].c_str(), " æˆç»©");
                         if (msg.x >= 830 && msg.x <= 1070 && msg.y >= 245 + i * 35 && msg.y <= 275 + i * 35){
                             InputBox(tls[i + 10], 100, st);
                             if(!check(tls[i + 10])){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                                MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                                 break;
                             }
                             if(stod(tls[i + 10]) < 0 || stod(tls[i + 10]) > 100){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                                MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                                 t.ls[i + 10] = -1;
                             }
                             t.score -= max(t.ls[i + 10], double(0));
@@ -1020,7 +1018,7 @@ void ChangeStudent() {
                     }
                 }
 
-                //¼ì²éÊÇ·ñËùÓĞĞÅÏ¢ÒÑÌîĞ´£¬Èç¹ûÊÇÔò½«µ±Ç°t²åÈës²¢É¾³ı²éÕÒµ½µÄ½Úµã£¬·´Ö®±¨´í
+                //æ£€æŸ¥æ˜¯å¦æ‰€æœ‰ä¿¡æ¯å·²å¡«å†™ï¼Œå¦‚æœæ˜¯åˆ™å°†å½“å‰tæ’å…¥så¹¶åˆ é™¤æŸ¥æ‰¾åˆ°çš„èŠ‚ç‚¹ï¼Œåä¹‹æŠ¥é”™
                 if(msg.x >= 675 && msg.x <= 785 && msg.y >= 180 && msg.y <= 220){
                     bool all = false;
                     if(t.id == "No_Input_id" || t.name == "No_Input_name" || t.gender == "No_Input_gender") all = true;
@@ -1032,11 +1030,11 @@ void ChangeStudent() {
                     }
                     if(all) {
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÓĞĞÅÏ¢Î´ÌîĞ´", "´íÎó", MB_OK);
+                        MessageBox(er, "æœ‰ä¿¡æ¯æœªå¡«å†™", "é”™è¯¯", MB_OK);
                     }
                     else{
                         HWND res = GetHWnd();
-                        MessageBox(res, "ĞŞ¸Ä³É¹¦", "ÌáÊ¾", MB_OK);
+                        MessageBox(res, "ä¿®æ”¹æˆåŠŸ", "æç¤º", MB_OK);
                         s.erase(p);
                         s.push_back(t);
                         for (int i = 0; i < lessonNumber; ++i) {
@@ -1050,7 +1048,7 @@ void ChangeStudent() {
                         female = false;
                     }
                 }
-                //ÖØÖÃ¼´³õÊ¼»¯t£¬²»¶Ôs½øĞĞ²Ù×÷
+                //é‡ç½®å³åˆå§‹åŒ–tï¼Œä¸å¯¹sè¿›è¡Œæ“ä½œ
                 if(msg.x >= 805 && msg.x <= 915 && msg.y >= 180 && msg.y <= 220){
                     for (int i = 0; i < lessonNumber; ++i) {
                         t.ls[i] = -1;
@@ -1071,22 +1069,22 @@ void ChangeStudent() {
 int ppage = 0;
 int tsit[100];
 vector<stu> SSlist;
-//ÅÅĞò·½Ê½
-int object;//µ±Ç°Ñ§¿Æ
+//æ’åºæ–¹å¼
+int object;//å½“å‰å­¦ç§‘
 bool CmpUp(const stu& a, const stu& b) {
     return a.ls[object] > b.ls[object];
-}//¿Î³Ì³É¼¨½µĞò
+}//è¯¾ç¨‹æˆç»©é™åº
 bool CmpDown(const stu& a, const stu& b) {
     return a.ls[object] < b.ls[object];
-}//¿Î³Ì³É¼¨ÉıĞò
+}//è¯¾ç¨‹æˆç»©å‡åº
 bool Cmp(const stu& a, const stu& b) {
     return a.id < b.id;
-}//Ñ§ºÅÉıĞò
+}//å­¦å·å‡åº
 bool CmpScore(const stu& a, const stu& b){
     return a.score > b.score;
-}//×Ü·Ö½µĞò
-//Ö¸¶¨·ÖÊı¶ÎÅÅÃû
-//»ù´¡½çÃæ»æÖÆ
+}//æ€»åˆ†é™åº
+//æŒ‡å®šåˆ†æ•°æ®µæ’å
+//åŸºç¡€ç•Œé¢ç»˜åˆ¶
 void ScoreStatisticsGraph(){
     clearrectangle(370, 100, 1080, 720);
     setlinecolor(BLACK);
@@ -1096,11 +1094,11 @@ void ScoreStatisticsGraph(){
     fillrectangle(680, 130, 880, 160);
     fillrectangle(880, 130, 950, 160);
     fillrectangle(950, 130, 1050, 160);
-    ot(380, 135, BLACK, 25, 0, "ÅÅÃû", "¿¬Ìå");
-    ot(460, 135, BLACK, 25, 0, "Ñ§ºÅ", "¿¬Ìå");
-    ot(690, 135, BLACK, 25, 0, "ĞÕÃû", "¿¬Ìå");
-    ot(890, 135, BLACK, 25, 0, "ĞÔ±ğ", "¿¬Ìå");
-    ot(960, 135, BLACK, 25, 0, "³É¼¨", "¿¬Ìå");
+    ot(380, 135, BLACK, 25, 0, "æ’å", "æ¥·ä½“");
+    ot(460, 135, BLACK, 25, 0, "å­¦å·", "æ¥·ä½“");
+    ot(690, 135, BLACK, 25, 0, "å§“å", "æ¥·ä½“");
+    ot(890, 135, BLACK, 25, 0, "æ€§åˆ«", "æ¥·ä½“");
+    ot(960, 135, BLACK, 25, 0, "æˆç»©", "æ¥·ä½“");
     for (int i = 0; i < 12; ++i) {
         fillrectangle(370, 160 + i * 30, 450, 190 + i * 30);
         fillrectangle(450, 160 + i * 30, 680, 190 + i * 30);
@@ -1111,23 +1109,23 @@ void ScoreStatisticsGraph(){
     setfillcolor(RGB(50, 100, 200));
     if(ppage != 0) {
         fillroundrect(790, 540, 860, 560, 10, 10);
-        ot(800, 543, WHITE, 15, 0, "ÉÏÒ»Ò³", "ËÎÌå");
+        ot(800, 543, WHITE, 15, 0, "ä¸Šä¸€é¡µ", "å®‹ä½“");
     }
     if(ppage != (int(SSlist.size()) + 11) / 12 - 1 && int(SSlist.size() + 11) / 12 != 0) {
         fillroundrect(1000, 540, 1070, 560, 10, 10);
-        ot(1010, 543, WHITE, 15, 0, "ÏÂÒ»Ò³", "ËÎÌå");
+        ot(1010, 543, WHITE, 15, 0, "ä¸‹ä¸€é¡µ", "å®‹ä½“");
     }
-    //ÅĞ¶ÏÊÇ·ñÏÔÊ¾·­Ò³°´Å¥
+    //åˆ¤æ–­æ˜¯å¦æ˜¾ç¤ºç¿»é¡µæŒ‰é’®
     char tpage[100];
-    sprintf(tpage, "µÚ%dÒ³  ¹²%dÒ³", ppage + 1, max(1, (int(SSlist.size() + 11) / 12)));
-    ot(870, 540, BLACK, 20, 0, tpage, "ËÎÌå");
+    sprintf(tpage, "ç¬¬%dé¡µ  å…±%dé¡µ", ppage + 1, max(1, (int(SSlist.size() + 11) / 12)));
+    ot(870, 540, BLACK, 20, 0, tpage, "å®‹ä½“");
 }
 void ScoreStatistics() {
     clearrectangle(340, 0, 1080, 720);
     setfillcolor(RGB(100, 150, 220));
     setlinecolor(RGB(100, 150, 220));
     fillrectangle(170, 115, 340, 205);
-    ot(182, 150, WHITE, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
+    ot(182, 150, WHITE, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(RGB(50, 100, 200));
     fillroundrect(370, 60, 650, 100, 10, 10);
@@ -1135,10 +1133,10 @@ void ScoreStatistics() {
     fillroundrect(970, 60, 1050, 100, 10, 10);
     setfillcolor(WHITE);
     setlinecolor(WHITE);
-    ot(385, 70, WHITE, 20, 0, "Ñ¡Ôñ¿Î³Ì", "ËÎÌå");
-    ot(685, 70, WHITE, 20, 0, "ÊäÈë·Ö¶Î", "ËÎÌå");
-    ot(850, 70, WHITE, 20, 0, "ÖÁ", "ËÎÌå");
-    ot(990, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+    ot(385, 70, WHITE, 20, 0, "é€‰æ‹©è¯¾ç¨‹", "å®‹ä½“");
+    ot(685, 70, WHITE, 20, 0, "è¾“å…¥åˆ†æ®µ", "å®‹ä½“");
+    ot(850, 70, WHITE, 20, 0, "è‡³", "å®‹ä½“");
+    ot(990, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
     ScoreStatisticsGraph();
     object = int(s.size()) + 1;
     char lesson[100];
@@ -1162,16 +1160,16 @@ void ScoreStatistics() {
         if(fn >= 0) sprintf(tfn, "%.2lf", fn);
         if(sn >= 0) sprintf(tsn, "%.2lf", sn);
         if(msg.x >= 170 && msg.x <= 340 && msg.y >= 25 && msg.y <= 115)
-            ot(190, 60, YELLOW, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
-        else ot(190, 60, WHITE, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
+            ot(190, 60, YELLOW, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
+        else ot(190, 60, WHITE, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
         if(msg.x >= 490 && msg.x <= 640 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(230, 230, 230));
             solidroundrect(490, 65, 640, 95, 10, 10);
-            ot(495, 72, BLACK, 20, 0, lesson, "ËÎÌå");
+            ot(495, 72, BLACK, 20, 0, lesson, "å®‹ä½“");
         }else{
             setfillcolor(WHITE);
             solidroundrect(490, 65, 640, 95, 10, 10);
-            ot(495, 72, BLACK, 20, 0, lesson, "ËÎÌå");
+            ot(495, 72, BLACK, 20, 0, lesson, "å®‹ä½“");
         }
         if(msg.x >= 780 && msg.x <= 845 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(200, 200, 200));
@@ -1179,14 +1177,14 @@ void ScoreStatistics() {
         }else{
             setfillcolor(WHITE);
             solidroundrect(780, 65, 845, 95, 10, 10);
-        }ot(785, 70, BLACK, 20, 0, tfn, "ËÎÌå");
+        }ot(785, 70, BLACK, 20, 0, tfn, "å®‹ä½“");
         if(msg.x >= 875 && msg.x <= 940 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(200, 200, 200));
             solidroundrect(875, 65, 940, 95, 10, 10);
         }else{
             setfillcolor(WHITE);
             solidroundrect(875, 65, 940, 95, 10, 10);
-        }ot(880, 70, BLACK, 20, 0, tsn, "ËÎÌå");
+        }ot(880, 70, BLACK, 20, 0, tsn, "å®‹ä½“");
 
         switch (msg.message) {
             case WM_LBUTTONDOWN: {
@@ -1214,15 +1212,15 @@ void ScoreStatistics() {
                 }
                 if (msg.x >= 780 && msg.x <= 845 && msg.y >= 60 && msg.y <= 100){
                     cs2 = true;
-                    InputBox(tfn, 20, "ÇëÊäÈë·ÖÊı·¶Î§£º");
+                    InputBox(tfn, 20, "è¯·è¾“å…¥åˆ†æ•°èŒƒå›´ï¼š");
                     if(!check(tfn)){
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                        MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                         break;
                     }
                     if(stod(tfn) < 0 || stod(tfn) > 100){
                         HWND er = GetHWnd();
-                        MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                        MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                         break;
                     }
                     ScoreStatisticsGraph();
@@ -1231,15 +1229,15 @@ void ScoreStatistics() {
                 }
                 if (msg.x >= 875 && msg.x <= 940 && msg.y >= 60 && msg.y <= 100){
                     cs3 = true;
-                    InputBox(tsn, 20, "ÇëÊäÈë·ÖÊı·¶Î§£º");
+                    InputBox(tsn, 20, "è¯·è¾“å…¥åˆ†æ•°èŒƒå›´ï¼š");
                     if(!check(tsn)){
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÊäÈëÓ¦ÎªÊı×Ö", "´íÎó", MB_OK);
+                        MessageBox(er, "è¾“å…¥åº”ä¸ºæ•°å­—", "é”™è¯¯", MB_OK);
                         break;
                     }
                     if(stod(tsn) < 0 || stod(tsn) > 100){
                         HWND er = GetHWnd();
-                        MessageBox(er, "³É¼¨Ó¦ÔÚ0-100Ö®¼ä", "´íÎó", MB_OK);
+                        MessageBox(er, "æˆç»©åº”åœ¨0-100ä¹‹é—´", "é”™è¯¯", MB_OK);
                         break;
                     }
                     ScoreStatisticsGraph();
@@ -1251,10 +1249,10 @@ void ScoreStatistics() {
                         tflag = true;
                     }else{
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÇëÉèÖÃÉ¸Ñ¡Ìõ¼ş", "´íÎó", MB_OK);
+                        MessageBox(er, "è¯·è®¾ç½®ç­›é€‰æ¡ä»¶", "é”™è¯¯", MB_OK);
                     }
                 }
-                //ÏÂÀ­Ñ¡Ôñ¿Î³Ì
+                //ä¸‹æ‹‰é€‰æ‹©è¯¾ç¨‹
                 if (msg.x >= 490 && msg.x <= 640 && msg.y >= 65 && msg.y <= 95) {
                     bool ewhile = false;
                     while (true) {
@@ -1270,11 +1268,11 @@ void ScoreStatistics() {
                             if (msg.x >= 490 && msg.x <= 640 && msg.y > 95 + i * 20 && msg.y <= 95 + (i + 1) * 20) {
                                 setfillcolor(RGB(128, 128, 128));
                                 fillrectangle(490, 95 + i * 20, 640, 95 + (i + 1) * 20);
-                                ot(495, 100 + i * 20, BLACK, 15, 0, st1, "ËÎÌå");
+                                ot(495, 100 + i * 20, BLACK, 15, 0, st1, "å®‹ä½“");
                             } else {
                                 setfillcolor(RGB(200, 200, 200));
                                 fillrectangle(490, 95 + i * 20,  640, 95 + (i + 1) * 20);
-                                ot(495, 100 + i * 20, BLACK, 15, 0, st1, "ËÎÌå");
+                                ot(495, 100 + i * 20, BLACK, 15, 0, st1, "å®‹ä½“");
                             }
                         }
                         switch (msg.message) {
@@ -1301,16 +1299,16 @@ void ScoreStatistics() {
                     fillroundrect(370, 60, 650, 100, 10, 10);
                     fillroundrect(670, 60, 950, 100, 10, 10);
                     fillroundrect(970, 60, 1050, 100, 10, 10);
-                    ot(385, 70, WHITE, 20, 0, "Ñ¡Ôñ¿Î³Ì", "ËÎÌå");
-                    ot(685, 70, WHITE, 20, 0, "ÊäÈë·Ö¶Î", "ËÎÌå");
-                    ot(850, 70, WHITE, 20, 0, "ÖÁ", "ËÎÌå");
-                    ot(990, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+                    ot(385, 70, WHITE, 20, 0, "é€‰æ‹©è¯¾ç¨‹", "å®‹ä½“");
+                    ot(685, 70, WHITE, 20, 0, "è¾“å…¥åˆ†æ®µ", "å®‹ä½“");
+                    ot(850, 70, WHITE, 20, 0, "è‡³", "å®‹ä½“");
+                    ot(990, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
                 }
             }
         }
-        if(!tflag) continue;//tflag±ê¼ÇÊÇ·ñ¶Ôµ±Ç°É¸Ñ¡Ìõ¼ş½øĞĞÁËÉ¸Ñ¡£¬Èç¹ûÃ»ÓĞĞŞ¸ÄÔò²»¶ÔÊä³öÄÚÈİ½øĞĞÖØĞÂÊä³öÒÔ·ÀÖ¹ÄÚÈİÉÁË¸
+        if(!tflag) continue;//tflagæ ‡è®°æ˜¯å¦å¯¹å½“å‰ç­›é€‰æ¡ä»¶è¿›è¡Œäº†ç­›é€‰ï¼Œå¦‚æœæ²¡æœ‰ä¿®æ”¹åˆ™ä¸å¯¹è¾“å‡ºå†…å®¹è¿›è¡Œé‡æ–°è¾“å‡ºä»¥é˜²æ­¢å†…å®¹é—ªçƒ
 
-        //½«ÊäÈëµÄÁ½¸öÊıÖĞ½Ï´ó½ÏĞ¡µÄ·Ö¿ª£¬²¢×÷ÎªÉ¸Ñ¡Ìõ¼ş
+        //å°†è¾“å…¥çš„ä¸¤ä¸ªæ•°ä¸­è¾ƒå¤§è¾ƒå°çš„åˆ†å¼€ï¼Œå¹¶ä½œä¸ºç­›é€‰æ¡ä»¶
         max_score = max(fn, sn);
         min_score = min(fn, sn);
         SSlist.clear();
@@ -1330,20 +1328,20 @@ void ScoreStatistics() {
         fillrectangle(680, 130, 880, 160);
         fillrectangle(880, 130, 950, 160);
         fillrectangle(950, 130, 1050, 160);
-        ot(380, 135, BLACK, 25, 0, "ÅÅÃû", "¿¬Ìå");
-        ot(460, 135, BLACK, 25, 0, "Ñ§ºÅ", "¿¬Ìå");
-        ot(690, 135, BLACK, 25, 0, "ĞÕÃû", "¿¬Ìå");
-        ot(890, 135, BLACK, 25, 0, "ĞÔ±ğ", "¿¬Ìå");
-        ot(960, 135, BLACK, 25, 0, "³É¼¨", "¿¬Ìå");
+        ot(380, 135, BLACK, 25, 0, "æ’å", "æ¥·ä½“");
+        ot(460, 135, BLACK, 25, 0, "å­¦å·", "æ¥·ä½“");
+        ot(690, 135, BLACK, 25, 0, "å§“å", "æ¥·ä½“");
+        ot(890, 135, BLACK, 25, 0, "æ€§åˆ«", "æ¥·ä½“");
+        ot(960, 135, BLACK, 25, 0, "æˆç»©", "æ¥·ä½“");
         auto cmp = SSlist[max(0, ppage * 12 - 1)];
         int site;
-        //È·¶¨µ±Ç°Ò³ÃæÏÔÊ¾µÄÑ§Éú¸öÊı
+        //ç¡®å®šå½“å‰é¡µé¢æ˜¾ç¤ºçš„å­¦ç”Ÿä¸ªæ•°
         if(ppage == 0) site = 1;
         else site = 0;
         int point;
         if(ppage == (int(SSlist.size() + 11) / 12) - 1) point = int(SSlist.size()) % 12;
         else point = 12;
-        //Êä³öµ±Ç°Ò³Ãæ
+        //è¾“å‡ºå½“å‰é¡µé¢
         for (int i = 0; i < point; ++ i) {
             if (cmp.ls[object] != SSlist[i + ppage * 12].ls[object]) ++site;
             fillrectangle(370, 160 + i * 30, 450, 190 + i * 30);
@@ -1357,29 +1355,29 @@ void ScoreStatistics() {
             sprintf(xm, "%s", SSlist[i + ppage * 12].name.c_str());
             sprintf(xb, "%s", SSlist[i + ppage * 12].gender.c_str());
             sprintf(cj, "%.2lf", SSlist[i + ppage * 12].ls[object]);
-            ot(380, 165 + i * 30, BLACK, 25, 0, pm, "¿¬Ìå");
-            ot(460, 165 + i * 30, BLACK, 25, 0, xh, "¿¬Ìå");
-            ot(690, 165 + i * 30, BLACK, 25, 0, xm, "¿¬Ìå");
-            ot(890, 165 + i * 30, BLACK, 25, 0, xb, "¿¬Ìå");
-            ot(960, 165 + i * 30, BLACK, 25, 0, cj, "¿¬Ìå");
+            ot(380, 165 + i * 30, BLACK, 25, 0, pm, "æ¥·ä½“");
+            ot(460, 165 + i * 30, BLACK, 25, 0, xh, "æ¥·ä½“");
+            ot(690, 165 + i * 30, BLACK, 25, 0, xm, "æ¥·ä½“");
+            ot(890, 165 + i * 30, BLACK, 25, 0, xb, "æ¥·ä½“");
+            ot(960, 165 + i * 30, BLACK, 25, 0, cj, "æ¥·ä½“");
             cmp = SSlist[i + ppage * 12];
         }
         tsit[ppage] = site + tsit[ppage - 1];
 
         char ratio[100];
-        sprintf(ratio, "µ±Ç°·Ö¶ÎÄÚ¹²%dÈË£¬ÔÚ×ÜÈËÊı£¨%d£©ÖĞÕ¼£º", situation, int(s.size()));
-        ot(380, 540, BLACK, 20, 0, ratio, "ËÎÌå");
+        sprintf(ratio, "å½“å‰åˆ†æ®µå†…å…±%däººï¼Œåœ¨æ€»äººæ•°ï¼ˆ%dï¼‰ä¸­å ï¼š", situation, int(s.size()));
+        ot(380, 540, BLACK, 20, 0, ratio, "å®‹ä½“");
         setlinecolor(BLACK);
         setfillcolor(WHITE);
         fillrectangle(380, 570, 680, 595);
         setfillcolor(RGB(50, 100, 200));
         fillrectangle(380, 570, 380 + int(double(situation) / double(s.size()) * 100) * 3, 595);
         sprintf(ratio, "%d%%", int(double(situation) / double(s.size()) * 100));
-        ot(370 + int(double(situation) / double(s.size()) * 100) * 3, 600, BLACK, 20, 0, ratio, "ËÎÌå");
+        ot(370 + int(double(situation) / double(s.size()) * 100) * 3, 600, BLACK, 20, 0, ratio, "å®‹ä½“");
     }
 }
-//Ö¸¶¨¿Î³ÌÅÅÃû
-//»ù´¡½çÃæ»æÖÆ
+//æŒ‡å®šè¯¾ç¨‹æ’å
+//åŸºç¡€ç•Œé¢ç»˜åˆ¶
 void SortPrintGraph(){
     clearrectangle(370, 100, 1080, 720);
     setlinecolor(BLACK);
@@ -1389,11 +1387,11 @@ void SortPrintGraph(){
     fillrectangle(680, 130, 880, 160);
     fillrectangle(880, 130, 950, 160);
     fillrectangle(950, 130, 1050, 160);
-    ot(380, 135, BLACK, 25, 0, "ÅÅÃû", "¿¬Ìå");
-    ot(460, 135, BLACK, 25, 0, "Ñ§ºÅ", "¿¬Ìå");
-    ot(690, 135, BLACK, 25, 0, "ĞÕÃû", "¿¬Ìå");
-    ot(890, 135, BLACK, 25, 0, "ĞÔ±ğ", "¿¬Ìå");
-    ot(960, 135, BLACK, 25, 0, "³É¼¨", "¿¬Ìå");
+    ot(380, 135, BLACK, 25, 0, "æ’å", "æ¥·ä½“");
+    ot(460, 135, BLACK, 25, 0, "å­¦å·", "æ¥·ä½“");
+    ot(690, 135, BLACK, 25, 0, "å§“å", "æ¥·ä½“");
+    ot(890, 135, BLACK, 25, 0, "æ€§åˆ«", "æ¥·ä½“");
+    ot(960, 135, BLACK, 25, 0, "æˆç»©", "æ¥·ä½“");
     for (int i = 0; i < 12; ++i) {
         fillrectangle(370, 160 + i * 30, 450, 190 + i * 30);
         fillrectangle(450, 160 + i * 30, 680, 190 + i * 30);
@@ -1404,22 +1402,22 @@ void SortPrintGraph(){
     setfillcolor(RGB(50, 100, 200));
     if(ppage != 0) {
         fillroundrect(790, 540, 860, 560, 10, 10);
-        ot(800, 543, WHITE, 15, 0, "ÉÏÒ»Ò³", "ËÎÌå");
+        ot(800, 543, WHITE, 15, 0, "ä¸Šä¸€é¡µ", "å®‹ä½“");
     }
     if(ppage != (int(s.size()) + 11) / 12 - 1) {
         fillroundrect(1000, 540, 1070, 560, 10, 10);
-        ot(1010, 543, WHITE, 15, 0, "ÏÂÒ»Ò³", "ËÎÌå");
+        ot(1010, 543, WHITE, 15, 0, "ä¸‹ä¸€é¡µ", "å®‹ä½“");
     }
     char tpage[100];
-    sprintf(tpage, "µÚ%dÒ³  ¹²%dÒ³", ppage + 1, (int(s.size() + 11) / 12));
-    ot(870, 540, BLACK, 20, 0, tpage, "ËÎÌå");
+    sprintf(tpage, "ç¬¬%dé¡µ  å…±%dé¡µ", ppage + 1, (int(s.size() + 11) / 12));
+    ot(870, 540, BLACK, 20, 0, tpage, "å®‹ä½“");
 }
 void SortPrint() {
     clearrectangle(340, 0, 1080, 720);
     setfillcolor(RGB(100, 150, 220));
     setlinecolor(RGB(100, 150, 220));
     fillrectangle(170, 25, 340, 115);
-    ot(190, 60, WHITE, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
+    ot(190, 60, WHITE, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(RGB(50, 100, 200));
     fillroundrect(370, 60, 650, 100, 10, 10);
@@ -1427,9 +1425,9 @@ void SortPrint() {
     fillroundrect(970, 60, 1050, 100, 10, 10);
     setfillcolor(WHITE);
     setlinecolor(WHITE);
-    ot(385, 70, WHITE, 20, 0, "ÅÅĞò¹æÔò", "ËÎÌå");
-    ot(685, 70, WHITE, 20, 0, "Ñ¡Ôñ¿Î³Ì", "ËÎÌå");
-    ot(990, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+    ot(385, 70, WHITE, 20, 0, "æ’åºè§„åˆ™", "å®‹ä½“");
+    ot(685, 70, WHITE, 20, 0, "é€‰æ‹©è¯¾ç¨‹", "å®‹ä½“");
+    ot(990, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
     SortPrintGraph();
     int cs;
     object = int(s.size()) + 1;
@@ -1439,35 +1437,35 @@ void SortPrint() {
     bool cs1 = false, cs2 = false;
     while(true){
         msg = getmessage(EM_MOUSE);
-        if(cs == 1) sprintf(cmppath, "%s", "³É¼¨½µĞò");
-        else if(cs == 2) sprintf(cmppath, "%s", "³É¼¨ÉıĞò");
-        else if(cs == 3) sprintf(cmppath, "%s", "Ñ§ºÅÉıĞò");
+        if(cs == 1) sprintf(cmppath, "%s", "æˆç»©é™åº");
+        else if(cs == 2) sprintf(cmppath, "%s", "æˆç»©å‡åº");
+        else if(cs == 3) sprintf(cmppath, "%s", "å­¦å·å‡åº");
         else sprintf(cmppath, "%s", " ");
         sprintf(lesson, "%s", lessonList[object].c_str());
         menuanimation(msg.x, msg.y, 4);
         if(msg.x >= 170 && msg.x <= 340 && msg.y >= 115 && msg.y <= 205)
-            ot(182, 150, YELLOW, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
-        else ot(182, 150, WHITE, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
+            ot(182, 150, YELLOW, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
+        else ot(182, 150, WHITE, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
         if(msg.x >= 490 && msg.x <= 640 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(230, 230, 230));
             solidroundrect(490, 65, 640, 95, 10, 10);
-            ot(495, 72, BLACK, 20, 0, cmppath, "ËÎÌå");
+            ot(495, 72, BLACK, 20, 0, cmppath, "å®‹ä½“");
         }else{
             setfillcolor(WHITE);
             solidroundrect(490, 65, 640, 95, 10, 10);
-            ot(495, 72, BLACK, 20, 0, cmppath, "ËÎÌå");
+            ot(495, 72, BLACK, 20, 0, cmppath, "å®‹ä½“");
         }
         if(msg.x >= 790 && msg.x <= 940 && msg.y >= 65 && msg.y <= 95){
             setfillcolor(RGB(230, 230, 230));
             solidroundrect(790, 65, 940, 95, 10, 10);
-            ot(795, 72, BLACK, 20, 0, lesson, "ËÎÌå");
+            ot(795, 72, BLACK, 20, 0, lesson, "å®‹ä½“");
         }else{
             setfillcolor(WHITE);
             solidroundrect(790, 65, 940, 95, 10, 10);
-            ot(795, 72, BLACK, 20, 0, lesson, "ËÎÌå");
+            ot(795, 72, BLACK, 20, 0, lesson, "å®‹ä½“");
         }
         button_animation(msg, 970, 60, 1050, 100, WHITE, RGB(50, 100, 200));
-        //ÅĞ¶ÏÊÇ·ñÏÔÊ¾°´Å¥¶¯»­
+        //åˆ¤æ–­æ˜¯å¦æ˜¾ç¤ºæŒ‰é’®åŠ¨ç”»
         if(ppage != 0) button_animation(msg, 790, 540, 860, 560, WHITE, RGB(50, 100, 200));
         if(ppage != (int(s.size()) + 11) / 12 - 1) button_animation(msg, 1000, 540, 1070, 560, WHITE, RGB(50, 100, 200));
 
@@ -1503,7 +1501,7 @@ void SortPrint() {
                     }
                     else{
                         HWND er = GetHWnd();
-                        MessageBox(er, "ÇëÉèÖÃÉ¸Ñ¡Ìõ¼ş", "´íÎó", MB_OK);
+                        MessageBox(er, "è¯·è®¾ç½®ç­›é€‰æ¡ä»¶", "é”™è¯¯", MB_OK);
                     }
                 }
                 if (msg.x >= 490 && msg.x <= 640 && msg.y >= 65 && msg.y <= 95) {
@@ -1518,31 +1516,31 @@ void SortPrint() {
                         if (msg.y >= 95 && msg.y <= 115 && msg.x >= 490 && msg.x <= 640) {
                             setfillcolor(RGB(128, 128, 128));
                             fillrectangle(490, 95, 640, 115);
-                            ot(495, 100, BLACK, 15, 0, "³É¼¨½µĞò", "ËÎÌå");
+                            ot(495, 100, BLACK, 15, 0, "æˆç»©é™åº", "å®‹ä½“");
                         } else {
                             setfillcolor(RGB(200, 200, 200));
                             fillrectangle(490, 95, 640, 115);
-                            ot(495, 100, BLACK, 15, 0, "³É¼¨½µĞò", "ËÎÌå");
+                            ot(495, 100, BLACK, 15, 0, "æˆç»©é™åº", "å®‹ä½“");
                         }
                         if (msg.y >= 115 && msg.y <= 135 && msg.x >= 490 && msg.x <= 640) {
                             setfillcolor(RGB(128, 128, 128));
                             fillrectangle(490, 115, 640, 135);
-                            ot(495, 120, BLACK, 15, 0, "³É¼¨ÉıĞò", "ËÎÌå");
+                            ot(495, 120, BLACK, 15, 0, "æˆç»©å‡åº", "å®‹ä½“");
                         } else {
                             setfillcolor(RGB(200, 200, 200));
                             fillrectangle(490, 115, 640, 135);
-                            ot(495, 120, BLACK, 15, 0, "³É¼¨ÉıĞò", "ËÎÌå");
+                            ot(495, 120, BLACK, 15, 0, "æˆç»©å‡åº", "å®‹ä½“");
                         }
                         if (msg.y >= 135 && msg.y <= 155 && msg.x >= 490 && msg.x <= 640) {
                             setfillcolor(RGB(128, 128, 128));
                             fillrectangle(490, 135, 640, 155);
-                            ot(495, 140, BLACK, 15, 0, "Ñ§ºÅÉıĞò", "ËÎÌå");
+                            ot(495, 140, BLACK, 15, 0, "å­¦å·å‡åº", "å®‹ä½“");
                         } else {
                             setfillcolor(RGB(200, 200, 200));
                             fillrectangle(490, 135, 640, 155);
-                            ot(495, 140, BLACK, 15, 0, "Ñ§ºÅÉıĞò", "ËÎÌå");
+                            ot(495, 140, BLACK, 15, 0, "å­¦å·å‡åº", "å®‹ä½“");
                         }
-                        //ÏÂÀ­À¸¶¯»­
+                        //ä¸‹æ‹‰æ åŠ¨ç”»
                         switch (msg.message) {
                             case WM_LBUTTONDOWN: {
                                 if (msg.x >= 490 && msg.x <= 640 && msg.y >= 95 && msg.y <= 115) {
@@ -1583,11 +1581,11 @@ void SortPrint() {
                     fillroundrect(370, 60, 650, 100, 10, 10);
                     fillroundrect(670, 60, 950, 100, 10, 10);
                     fillroundrect(970, 60, 1050, 100, 10, 10);
-                    ot(385, 70, WHITE, 20, 0, "ÅÅĞò¹æÔò", "ËÎÌå");
-                    ot(685, 70, WHITE, 20, 0, "Ñ¡Ôñ¿Î³Ì", "ËÎÌå");
-                    ot(990, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+                    ot(385, 70, WHITE, 20, 0, "æ’åºè§„åˆ™", "å®‹ä½“");
+                    ot(685, 70, WHITE, 20, 0, "é€‰æ‹©è¯¾ç¨‹", "å®‹ä½“");
+                    ot(990, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
                 }
-                //ÏÂÀ­À¸Ñ¡Ôñ¿Î³Ì
+                //ä¸‹æ‹‰æ é€‰æ‹©è¯¾ç¨‹
                 if (msg.x >= 790 && msg.x <= 940 && msg.y >= 65 && msg.y <= 95) {
                     bool ewhile = false;
                     while (true) {
@@ -1603,11 +1601,11 @@ void SortPrint() {
                             if (msg.x >= 790 && msg.x <= 940 && msg.y > 95 + i * 20 && msg.y <= 95 + (i + 1) * 20) {
                                 setfillcolor(RGB(128, 128, 128));
                                 fillrectangle(790, 95 + i * 20, 940, 95 + (i + 1) * 20);
-                                ot(795, 100 + i * 20, BLACK, 15, 0, st1, "ËÎÌå");
+                                ot(795, 100 + i * 20, BLACK, 15, 0, st1, "å®‹ä½“");
                             } else {
                                 setfillcolor(RGB(200, 200, 200));
                                 fillrectangle(790, 95 + i * 20,  940, 95 + (i + 1) * 20);
-                                ot(795, 100 + i * 20, BLACK, 15, 0, st1, "ËÎÌå");
+                                ot(795, 100 + i * 20, BLACK, 15, 0, st1, "å®‹ä½“");
                             }
                         }
                         switch (msg.message) {
@@ -1635,17 +1633,17 @@ void SortPrint() {
                     fillroundrect(370, 60, 650, 100, 10, 10);
                     fillroundrect(670, 60, 950, 100, 10, 10);
                     fillroundrect(970, 60, 1050, 100, 10, 10);
-                    ot(385, 70, WHITE, 20, 0, "ÅÅĞò¹æÔò", "ËÎÌå");
-                    ot(685, 70, WHITE, 20, 0, "Ñ¡Ôñ¿Î³Ì", "ËÎÌå");
-                    ot(990, 70, WHITE, 20, 0, "²éÑ¯", "ËÎÌå");
+                    ot(385, 70, WHITE, 20, 0, "æ’åºè§„åˆ™", "å®‹ä½“");
+                    ot(685, 70, WHITE, 20, 0, "é€‰æ‹©è¯¾ç¨‹", "å®‹ä½“");
+                    ot(990, 70, WHITE, 20, 0, "æŸ¥è¯¢", "å®‹ä½“");
                 }
             }
         }
         flushmessage(EM_MOUSE);
 
-        if(!tflag) continue;//Í¬·ÖÊı¶ÎÍ³¼Æ£¬tflag´ú±íÉ¸Ñ¡Ìõ¼şÊÇ·ñÓĞ¸ü¸Ä
+        if(!tflag) continue;//åŒåˆ†æ•°æ®µç»Ÿè®¡ï¼Œtflagä»£è¡¨ç­›é€‰æ¡ä»¶æ˜¯å¦æœ‰æ›´æ”¹
 
-        //°´Ñ¡ÔñµÄÅÅĞò¹æÔò¶ÔÑ§Éú½øĞĞÅÅĞò
+        //æŒ‰é€‰æ‹©çš„æ’åºè§„åˆ™å¯¹å­¦ç”Ÿè¿›è¡Œæ’åº
         if (cs == 1) sort(s.begin(), s.end(), CmpUp);
         else if (cs == 2) sort(s.begin(), s.end(), CmpDown);
         else sort(s.begin(), s.end(), Cmp);
@@ -1657,11 +1655,11 @@ void SortPrint() {
         fillrectangle(680, 130, 880, 160);
         fillrectangle(880, 130, 950, 160);
         fillrectangle(950, 130, 1050, 160);
-        ot(380, 135, BLACK, 25, 0, "ÅÅÃû", "¿¬Ìå");
-        ot(460, 135, BLACK, 25, 0, "Ñ§ºÅ", "¿¬Ìå");
-        ot(690, 135, BLACK, 25, 0, "ĞÕÃû", "¿¬Ìå");
-        ot(890, 135, BLACK, 25, 0, "ĞÔ±ğ", "¿¬Ìå");
-        ot(960, 135, BLACK, 25, 0, "³É¼¨", "¿¬Ìå");
+        ot(380, 135, BLACK, 25, 0, "æ’å", "æ¥·ä½“");
+        ot(460, 135, BLACK, 25, 0, "å­¦å·", "æ¥·ä½“");
+        ot(690, 135, BLACK, 25, 0, "å§“å", "æ¥·ä½“");
+        ot(890, 135, BLACK, 25, 0, "æ€§åˆ«", "æ¥·ä½“");
+        ot(960, 135, BLACK, 25, 0, "æˆç»©", "æ¥·ä½“");
         auto cmp = s[max(0, ppage * 12 - 1)];
         int site;
         if(ppage == 0) site = 1;
@@ -1683,11 +1681,11 @@ void SortPrint() {
             sprintf(xm, "%s", s[i + ppage * 12].name.c_str());
             sprintf(xb, "%s", s[i + ppage * 12].gender.c_str());
             sprintf(cj, "%.2lf", s[i + ppage * 12].ls[object]);
-            ot(380, 165 + i * 30, BLACK, 25, 0, pm, "¿¬Ìå");
-            ot(460, 165 + i * 30, BLACK, 25, 0, xh, "¿¬Ìå");
-            ot(690, 165 + i * 30, BLACK, 25, 0, xm, "¿¬Ìå");
-            ot(890, 165 + i * 30, BLACK, 25, 0, xb, "¿¬Ìå");
-            ot(960, 165 + i * 30, BLACK, 25, 0, cj, "¿¬Ìå");
+            ot(380, 165 + i * 30, BLACK, 25, 0, pm, "æ¥·ä½“");
+            ot(460, 165 + i * 30, BLACK, 25, 0, xh, "æ¥·ä½“");
+            ot(690, 165 + i * 30, BLACK, 25, 0, xm, "æ¥·ä½“");
+            ot(890, 165 + i * 30, BLACK, 25, 0, xb, "æ¥·ä½“");
+            ot(960, 165 + i * 30, BLACK, 25, 0, cj, "æ¥·ä½“");
             cmp = s[i + ppage * 12];
         }
         tsit[ppage] = site + tsit[ppage - 1];
@@ -1696,38 +1694,38 @@ void SortPrint() {
 
 int page = 0;
 int sit[100];
-//Êä³öÑ§Éú³É¼¨
+//è¾“å‡ºå­¦ç”Ÿæˆç»©
 void PrintScore(int li){
     int p = 1;
     for (int i = 0; i < li; ++ i){
         char zf[10];
         sprintf(zf, "%.2lf", s[i + page * 12].score);
         fillrectangle(840, 130 + p * 30, 1000, 160 + p * 30);
-        ot(850, 135 + p * 30, BLACK, 25, 0, zf, "¿¬Ìå");
+        ot(850, 135 + p * 30, BLACK, 25, 0, zf, "æ¥·ä½“");
         ++p;
     }
 }
-//Êä³öËùÓĞÑ§ÉúĞÅÏ¢
+//è¾“å‡ºæ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
 void PrintAll() {
     menu(1);
     char st[100];
-    sprintf(st, "%s%d%s", "µ±Ç°È«²¿Ñ§ÉúĞÅÏ¢ÈçÏÂ£¨¹²", int(s.size()), "ÈË£©£º");
-    ot(220, 50, BLACK, 25, 0, st, "ËÎÌå");
-    ot(220, 100, BLACK, 15, 0, "×Ü·Öµã¿ª¿É²é¿´¸÷¿Æ³É¼¨", "ËÎÌå");
+    sprintf(st, "%s%d%s", "å½“å‰å…¨éƒ¨å­¦ç”Ÿä¿¡æ¯å¦‚ä¸‹ï¼ˆå…±", int(s.size()), "äººï¼‰ï¼š");
+    ot(220, 50, BLACK, 25, 0, st, "å®‹ä½“");
+    ot(220, 100, BLACK, 15, 0, "æ€»åˆ†ç‚¹å¼€å¯æŸ¥çœ‹å„ç§‘æˆç»©", "å®‹ä½“");
     char tpage[100];
-    sprintf(tpage, "µÚ%dÒ³  ¹²%dÒ³", page + 1, (int(s.size()) + 11) / 12);
-    ot(800, 100, BLACK, 20, 0, tpage, "ËÎÌå");
+    sprintf(tpage, "ç¬¬%dé¡µ  å…±%dé¡µ", page + 1, (int(s.size()) + 11) / 12);
+    ot(800, 100, BLACK, 20, 0, tpage, "å®‹ä½“");
     sort(s.begin(), s.end(), CmpScore);
     setlinecolor(BLACK);
     setfillcolor(RGB(50, 100, 200));
-    //ÅĞ¶ÏÊÇ·ñÏÔÊ¾·­Ò³°´Å¥
+    //åˆ¤æ–­æ˜¯å¦æ˜¾ç¤ºç¿»é¡µæŒ‰é’®
     if(page != 0) {
         fillroundrect(720, 100, 790, 120, 10, 10);
-        ot(730, 103, WHITE, 15, 0, "ÉÏÒ»Ò³", "ËÎÌå");
+        ot(730, 103, WHITE, 15, 0, "ä¸Šä¸€é¡µ", "å®‹ä½“");
     }
     else if(page != (int(s.size()) + 11) / 12 - 1) {
         fillroundrect(930, 100, 1000, 120, 10, 10);
-        ot(940, 103, WHITE, 15, 0, "ÏÂÒ»Ò³", "ËÎÌå");
+        ot(940, 103, WHITE, 15, 0, "ä¸‹ä¸€é¡µ", "å®‹ä½“");
     }
     setlinecolor(BLACK);
     setfillcolor(WHITE);
@@ -1736,20 +1734,20 @@ void PrintAll() {
     fillrectangle(530, 130, 770, 160);
     fillrectangle(770, 130, 840, 160);
     fillrectangle(840, 130, 1000, 160);
-    ot(230, 135, BLACK, 25, 0, "ÅÅÃû", "¿¬Ìå");
-    ot(300, 135, BLACK, 25, 0, "Ñ§ºÅ", "¿¬Ìå");
-    ot(540, 135, BLACK, 25, 0, "ĞÕÃû", "¿¬Ìå");
-    ot(780, 135, BLACK, 25, 0, "ĞÔ±ğ", "¿¬Ìå");
-    ot(850, 135, BLACK, 25, 0, "×Ü·Ö", "¿¬Ìå");
-    //ÅĞ¶Ïµ±Ç°Ò³ÃæĞèÒªÏÔÊ¾µÄÑ§Éú¸öÊı
+    ot(230, 135, BLACK, 25, 0, "æ’å", "æ¥·ä½“");
+    ot(300, 135, BLACK, 25, 0, "å­¦å·", "æ¥·ä½“");
+    ot(540, 135, BLACK, 25, 0, "å§“å", "æ¥·ä½“");
+    ot(780, 135, BLACK, 25, 0, "æ€§åˆ«", "æ¥·ä½“");
+    ot(850, 135, BLACK, 25, 0, "æ€»åˆ†", "æ¥·ä½“");
+    //åˆ¤æ–­å½“å‰é¡µé¢éœ€è¦æ˜¾ç¤ºçš„å­¦ç”Ÿä¸ªæ•°
     int point;
     if(page == (int(s.size()) + 11) / 12 - 1) point = int(s.size()) % 12;
     else point = 12;
     int site;
     if(page == 0) site = 1;
     else site = 0;
-    auto cmp = s[max(page * 12 - 1, 0)];//ÁÙÊ±±È½ÏÓÃ½Úµã£¬ÓÃÀ´¼ÆËãÅÅÃû
-    //»æÖÆ±í¸ñ
+    auto cmp = s[max(page * 12 - 1, 0)];//ä¸´æ—¶æ¯”è¾ƒç”¨èŠ‚ç‚¹ï¼Œç”¨æ¥è®¡ç®—æ’å
+    //ç»˜åˆ¶è¡¨æ ¼
     for (int i = 0; i < point; ++ i) {
         if(s[i + page * 12].score != cmp.score) ++ site;
         fillrectangle(220, 160 + i * 30, 290, 190 + i * 30);
@@ -1761,13 +1759,13 @@ void PrintAll() {
         sprintf(xh, "%s", s[i + page * 12].id.c_str());
         sprintf(xm, "%s", s[i + page * 12].name.c_str());
         sprintf(xb, "%s", s[i + page * 12].gender.c_str());
-        ot(230, 165 + i * 30, BLACK, 25, 0, pm, "¿¬Ìå");
-        ot(300, 165 + i * 30, BLACK, 25, 0, xh, "¿¬Ìå");
-        ot(540, 165 + i * 30, BLACK, 25, 0, xm, "¿¬Ìå");
-        ot(780, 165 + i * 30, BLACK, 25, 0, xb, "¿¬Ìå");
+        ot(230, 165 + i * 30, BLACK, 25, 0, pm, "æ¥·ä½“");
+        ot(300, 165 + i * 30, BLACK, 25, 0, xh, "æ¥·ä½“");
+        ot(540, 165 + i * 30, BLACK, 25, 0, xm, "æ¥·ä½“");
+        ot(780, 165 + i * 30, BLACK, 25, 0, xb, "æ¥·ä½“");
         cmp = s[i + page * 12];
     }
-    sit[page] = site + sit[page - 1];//µ±Ç°Ò³ÃæµÄµÚÒ»Î»ÅÅÃûÊÇÉÏÒ»Ò³ÃæµÄ×îºóÒ»Î»Ñ§ÉúÅÅÃûµÄÖµ+0»ò1£¨È¡¾öÓÚÊÇ·ñÓëÉÏÒ»Ò³×îºóÒ»¸öÍ¬Ñ§×Ü·ÖÏàÍ¬£©
+    sit[page] = site + sit[page - 1];//å½“å‰é¡µé¢çš„ç¬¬ä¸€ä½æ’åæ˜¯ä¸Šä¸€é¡µé¢çš„æœ€åä¸€ä½å­¦ç”Ÿæ’åçš„å€¼+0æˆ–1ï¼ˆå–å†³äºæ˜¯å¦ä¸ä¸Šä¸€é¡µæœ€åä¸€ä¸ªåŒå­¦æ€»åˆ†ç›¸åŒï¼‰
     PrintScore(point);
     bool ewhile = false;
     while(true){
@@ -1812,7 +1810,7 @@ void PrintAll() {
                     return;
                 }
 
-                //ÏÔÊ¾¸÷¿Æ³É¼¨
+                //æ˜¾ç¤ºå„ç§‘æˆç»©
                 for (int i = 0; i < point; ++i) {
                     if(msg.x >= 840 && msg.x <= 1000 && msg.y > 160 + i * 30 && msg.y <= 190 + i * 30) {
                         setfillcolor(RGB(200, 200, 200));
@@ -1826,8 +1824,8 @@ void PrintAll() {
                             char tmp1[100],tmp2[10];
                             sprintf(tmp1, "%s", lessonList[j].c_str());
                             sprintf(tmp2, "%.2lf", s[i + page * 12].ls[j]);
-                            ot(450 + j % 3 * 200, 195 + i * 30 + j / 3 * 30, BLACK, 20, 0, tmp1, "¿¬Ìå");
-                            ot(580 + j % 3 * 200, 195 + i * 30 + j / 3 * 30, BLACK, 20, 0, tmp2, "¿¬Ìå");
+                            ot(450 + j % 3 * 200, 195 + i * 30 + j / 3 * 30, BLACK, 20, 0, tmp1, "æ¥·ä½“");
+                            ot(580 + j % 3 * 200, 195 + i * 30 + j / 3 * 30, BLACK, 20, 0, tmp2, "æ¥·ä½“");
                             line(440, 220 + i * 30 + j / 3 * 30, 1060, 220 + i * 30 + j / 3 * 30);
                             line(440, 221 + i * 30 + j / 3 * 30, 1060, 221 + i * 30 + j / 3 * 30);
                         }
@@ -1845,7 +1843,7 @@ void PrintAll() {
     }
 }
 
-//±£´æÊı¾İµ½±¾µØ
+//ä¿å­˜æ•°æ®åˆ°æœ¬åœ°
 void Save() {
     ofstream outfile;
     outfile.open("data.txt");
@@ -1862,7 +1860,7 @@ void Save() {
     outfile.close();
 }
 
-//´Ó±¾µØ¶ÁÈ¡Êı¾İ
+//ä»æœ¬åœ°è¯»å–æ•°æ®
 void Read() {
     ifstream infile;
     infile.open("data.txt");
@@ -1888,15 +1886,15 @@ void Read() {
     infile.close();
 }
 
-//ÉèÖÃ½çÃæ»æÖÆ
+//è®¾ç½®ç•Œé¢ç»˜åˆ¶
 void settinggraph(){
     menu(7);
     char ts1[100];
-    sprintf(ts1, "%s%d","µ±Ç°ÒÑÓĞ¿ÆÄ¿ÊıÁ¿£º", lessonNumber);
-    ot(220, 80, BLACK, 20, 0, ts1, "ËÎÌå");
+    sprintf(ts1, "%s%d","å½“å‰å·²æœ‰ç§‘ç›®æ•°é‡ï¼š", lessonNumber);
+    ot(220, 80, BLACK, 20, 0, ts1, "å®‹ä½“");
     char ts2[100];
-    sprintf(ts2, "%s%zu%s", "µ±Ç°ÒÑÓĞÑ§Éú£º", s.size(), "ÈË");
-    ot(220, 115, BLACK, 20, 0, ts2, "ËÎÌå");
+    sprintf(ts2, "%s%zu%s", "å½“å‰å·²æœ‰å­¦ç”Ÿï¼š", s.size(), "äºº");
+    ot(220, 115, BLACK, 20, 0, ts2, "å®‹ä½“");
 
     setfillcolor(RGB(100, 150, 250));
     setlinecolor(BLACK);
@@ -1905,17 +1903,17 @@ void settinggraph(){
     solidroundrect(230, 170, 380, 200, 10, 10);
     solidroundrect(390, 170, 540, 200, 10, 10);
     solidroundrect(550, 170, 700, 200, 10, 10);
-    ot(235, 176, WHITE, 20, 0, "ĞÂÔö¿Î³Ì", "¿¬Ìå");
-    ot(395, 176, WHITE, 20, 0, "±£´æÊı¾İµ½±¾µØ", "¿¬Ìå");
-    ot(555, 176, WHITE, 20, 0, "¶ÁÈ¡±¾µØÊı¾İ", "¿¬Ìå");
+    ot(235, 176, WHITE, 20, 0, "æ–°å¢è¯¾ç¨‹", "æ¥·ä½“");
+    ot(395, 176, WHITE, 20, 0, "ä¿å­˜æ•°æ®åˆ°æœ¬åœ°", "æ¥·ä½“");
+    ot(555, 176, WHITE, 20, 0, "è¯»å–æœ¬åœ°æ•°æ®", "æ¥·ä½“");
     for (int i = 0; i < lessonNumber; ++i) {
         fillroundrect(220 + i % 4 * 200, 240 + i / 4 * 100, 370 + i % 4 * 200, 270 + i / 4 * 100, 10, 10);
         char st[100];
         sprintf(st, "%s", lessonList[i].c_str());
-        ot(225 + i % 4 * 200, 247 + i / 4 * 100, WHITE, 20, 0, st, "¿¬Ìå");
+        ot(225 + i % 4 * 200, 247 + i / 4 * 100, WHITE, 20, 0, st, "æ¥·ä½“");
     }
 }
-//ÉèÖÃ
+//è®¾ç½®
 void Setting() {
     settinggraph();
     while(true){
@@ -1948,16 +1946,16 @@ void Setting() {
                     if(msg.x >= 230 && msg.x <= 380 && msg.y >= 170 && msg.y <= 200){
                         if(lessonNumber == 20){
                             HWND er = GetHWnd();
-                            MessageBox(er, "Ìí¼ÓÊ§°Ü£¬¿Î³ÌÊıÒÑ³¬¹ıÉÏÏŞ£¨20£©", "´íÎó", MB_OK);
+                            MessageBox(er, "æ·»åŠ å¤±è´¥ï¼Œè¯¾ç¨‹æ•°å·²è¶…è¿‡ä¸Šé™ï¼ˆ20ï¼‰", "é”™è¯¯", MB_OK);
                             break;
                         }
                         char st[100];
-                        InputBox(st, 100, "ÇëÊäÈë¿Î³ÌÃû³Æ");
+                        InputBox(st, 100, "è¯·è¾“å…¥è¯¾ç¨‹åç§°");
                         bool flag = false;
                         for (int i = 0; i < lessonNumber; ++i) {
                             if(lessonList[i] == st){
                                 HWND er = GetHWnd();
-                                MessageBox(er, "Ìí¼ÓÊ§°Ü£¬¿Î³ÌÒÑ´æÔÚ", "´íÎó", MB_OK);
+                                MessageBox(er, "æ·»åŠ å¤±è´¥ï¼Œè¯¾ç¨‹å·²å­˜åœ¨", "é”™è¯¯", MB_OK);
                                 flag = true;
                                 break;
                             }
@@ -1971,25 +1969,25 @@ void Setting() {
                     if(msg.x >= 390 && msg.x <= 540 && msg.y >= 170 && msg.y <= 200) {
                         Save();
                         HWND res = GetHWnd();
-                        MessageBox(res, "±£´æ³É¹¦", "ÌáÊ¾", MB_OK);
+                        MessageBox(res, "ä¿å­˜æˆåŠŸ", "æç¤º", MB_OK);
                         settinggraph();
                     }
                     if(msg.x >= 550 && msg.x <= 700 && msg.y >= 170 && msg.y <= 200){
                         Read();
                         if(lessonNumber == 0 && s.empty()){
                             HWND er = GetHWnd();
-                            MessageBox(er, "±¾µØÎŞÊı¾İ£¬¶ÁÈ¡Ê§°Ü", "´íÎó", MB_OK);
+                            MessageBox(er, "æœ¬åœ°æ— æ•°æ®ï¼Œè¯»å–å¤±è´¥", "é”™è¯¯", MB_OK);
                         }
                         else if(lessonNumber == 0){
                             HWND er = GetHWnd();
-                            MessageBox(er, "µ±Ç°¿Î³ÌÊıÁ¿ÎªÁã£¬Ôö¼Ó¿Î³Ì", "ÌáÊ¾", MB_OK);
+                            MessageBox(er, "å½“å‰è¯¾ç¨‹æ•°é‡ä¸ºé›¶ï¼Œå¢åŠ è¯¾ç¨‹", "æç¤º", MB_OK);
 
                         }
                         else{
                             HWND er = GetHWnd();
                             char ch[100];
-                            sprintf(ch, "%s", "¶ÁÈ¡³É¹¦£¬Êı¾İÒÑ¸üĞÂ");
-                            MessageBox(er, ch, "ÌáÊ¾", MB_OK);
+                            sprintf(ch, "%s", "è¯»å–æˆåŠŸï¼Œæ•°æ®å·²æ›´æ–°");
+                            MessageBox(er, ch, "æç¤º", MB_OK);
                         }
                         settinggraph();
                     }
@@ -2001,8 +1999,8 @@ void Setting() {
                             setlinecolor(BLACK);
                             fillrectangle(220 + tx, 270 + ty, 370 + tx, 295 + ty);
                             fillrectangle(220 + tx, 295 + ty, 370 + tx, 320 + ty);
-                            ot(225 + tx, 275 + ty, BLACK, 15, 0, "ĞŞ¸ÄÃû³Æ", "ËÎÌå");
-                            ot(225 + tx, 300 + ty, BLACK, 15, 0, "É¾³ı", "ËÎÌå");
+                            ot(225 + tx, 275 + ty, BLACK, 15, 0, "ä¿®æ”¹åç§°", "å®‹ä½“");
+                            ot(225 + tx, 300 + ty, BLACK, 15, 0, "åˆ é™¤", "å®‹ä½“");
                             flushmessage(EM_MOUSE);
                             setlinecolor(WHITE);
                             while(true) {
@@ -2014,30 +2012,30 @@ void Setting() {
                                 if (msg.y <= 295 + ty && msg.y > 270 + ty){
                                     setfillcolor(RGB(128,128,128));
                                     fillrectangle(220 + tx, 270 + ty, 370 + tx, 295 + ty);
-                                    ot(225 + tx, 275 + ty, BLACK, 15, 0, "ĞŞ¸ÄÃû³Æ", "ËÎÌå");
+                                    ot(225 + tx, 275 + ty, BLACK, 15, 0, "ä¿®æ”¹åç§°", "å®‹ä½“");
                                 }else{
                                     setfillcolor(RGB(200,200,200));
                                     fillrectangle(220 + tx, 270 + ty, 370 + tx, 295 + ty);
-                                    ot(225 + tx, 275 + ty, BLACK, 15, 0, "ĞŞ¸ÄÃû³Æ", "ËÎÌå");
+                                    ot(225 + tx, 275 + ty, BLACK, 15, 0, "ä¿®æ”¹åç§°", "å®‹ä½“");
                                 }
                                 if (msg.y <= 320 + ty && msg.y > 295 + ty){
                                     setfillcolor(RGB(128,128,128));
                                     fillrectangle(220 + tx, 295 + ty, 370 + tx, 320 + ty);
-                                    ot(225 + tx, 300 + ty, BLACK, 15, 0, "É¾³ı", "ËÎÌå");
+                                    ot(225 + tx, 300 + ty, BLACK, 15, 0, "åˆ é™¤", "å®‹ä½“");
                                 }else{
                                     setfillcolor(RGB(200,200,200));
                                     fillrectangle(220 + tx, 295 + ty, 370 + tx, 320 + ty);
-                                    ot(225 + tx, 300 + ty, BLACK, 15, 0, "É¾³ı", "ËÎÌå");
+                                    ot(225 + tx, 300 + ty, BLACK, 15, 0, "åˆ é™¤", "å®‹ä½“");
                                 }
                                 switch (msg.message) {
                                     case WM_LBUTTONDOWN:{
                                         if(msg.y <= 295 + ty && msg.y > 270 + ty && msg.x <= 370 + tx && msg.x >= 220 + tx){
                                             char st[100];
-                                            InputBox(st,100,"ĞŞ¸ÄºóµÄ¿Î³ÌÃû³Æ");
+                                            InputBox(st,100,"ä¿®æ”¹åçš„è¯¾ç¨‹åç§°");
                                             lessonList[i] = st;
                                             settinggraph();
                                         }
-                                        //É¾³ıºó´ÓÃ¿¸öÈËµÄ×Ü³É¼¨ÖĞ¼õÈ¥´Ë¿Î³ÌµÄ³É¼¨£¬²¢½«ºóÃæ¿Î³ÌµÄ³É¼¨ÏòÇ°ÒÆ¶¯£¬½«lessonNumber - 1
+                                        //åˆ é™¤åä»æ¯ä¸ªäººçš„æ€»æˆç»©ä¸­å‡å»æ­¤è¯¾ç¨‹çš„æˆç»©ï¼Œå¹¶å°†åé¢è¯¾ç¨‹çš„æˆç»©å‘å‰ç§»åŠ¨ï¼Œå°†lessonNumber - 1
                                         if(msg.y <= 320 + ty && msg.y > 295 + ty && msg.x <= 370 + tx && msg.x >= 220 + tx){
                                             for (int j = i; j < lessonNumber - 1; ++j) {
                                                 lessonList[j] = lessonList[j + 1];
@@ -2050,7 +2048,7 @@ void Setting() {
                                             }lessonList[lessonNumber] = " ";
                                             lessonNumber --;
                                             HWND res = GetHWnd();
-                                            MessageBox(res, "É¾³ı³É¹¦", "ÌáÊ¾", MB_OK);
+                                            MessageBox(res, "åˆ é™¤æˆåŠŸ", "æç¤º", MB_OK);
                                             settinggraph();
                                         }
                                     }
@@ -2064,7 +2062,7 @@ void Setting() {
     }
 }
 
-//ÍË³ö½çÃæ
+//é€€å‡ºç•Œé¢
 void Quit(){
     setlinecolor(RGB(50, 100, 200));
     setfillcolor(RGB(50, 100, 200));
@@ -2075,10 +2073,10 @@ void Quit(){
     fillroundrect(520, 280, 700, 310, 10, 10);
     fillroundrect(520, 320, 700, 350, 10, 10);
     fillroundrect(520, 360, 700, 390, 10, 10);
-    ot(505, 235, WHITE, 20, 0, "ÍË³öÏµÍ³£¿", "ËÎÌå");
-    ot(560, 285, WHITE, 20, 0, "±£´æ²¢ÍË³ö", "ËÎÌå");
-    ot(570, 325, WHITE, 20, 0, "Ö±½ÓÍË³ö", "ËÎÌå");
-    ot(585, 365, WHITE, 20, 0, "È¡Ïû", "ËÎÌå");
+    ot(505, 235, WHITE, 20, 0, "é€€å‡ºç³»ç»Ÿï¼Ÿ", "å®‹ä½“");
+    ot(560, 285, WHITE, 20, 0, "ä¿å­˜å¹¶é€€å‡º", "å®‹ä½“");
+    ot(570, 325, WHITE, 20, 0, "ç›´æ¥é€€å‡º", "å®‹ä½“");
+    ot(585, 365, WHITE, 20, 0, "å–æ¶ˆ", "å®‹ä½“");
     while(true){
         msg = getmessage(EM_MOUSE);
         button_animation(msg, 520, 280, 700, 310, WHITE, RGB(50, 100, 200));
@@ -2098,7 +2096,7 @@ void Quit(){
                     closegraph();
                     return;
                 }
-                //Èç¹ûÑ¡ÔñÈ¡Ïû£¬Ôò½«½çÃæ»Ö¸´µ½½øÈëÍË³ö½çÃæÇ°µÄ½çÃæ£¬¼´qchoose¶ÔÓ¦µÄ½çÃæ
+                //å¦‚æœé€‰æ‹©å–æ¶ˆï¼Œåˆ™å°†ç•Œé¢æ¢å¤åˆ°è¿›å…¥é€€å‡ºç•Œé¢å‰çš„ç•Œé¢ï¼Œå³qchooseå¯¹åº”çš„ç•Œé¢
                 if(msg.x >= 520 && msg.x <= 700 && msg.y >= 360 && msg.y <= 390){
                     choose = qchoose;
                     flushmessage(EM_MOUSE);
@@ -2109,7 +2107,7 @@ void Quit(){
     }
 }
 
-//¿ªÊ¼½çÃæ»æÖÆ
+//å¼€å§‹ç•Œé¢ç»˜åˆ¶
 bool endsystem;
 void startgraph() {
     flushmessage(EM_MOUSE);
@@ -2118,14 +2116,14 @@ void startgraph() {
     putimage(400, 150, &ah);
     setlinecolor(BLACK);
     rectangle(380,250,700,295);
-    ot(390, 260, BLACK, 30, 0, "»¶Ó­Ê¹ÓÃĞ¡ĞÍ½ÌÎñÏµÍ³", "¿¬Ìå");
+    ot(390, 260, BLACK, 30, 0, "æ¬¢è¿ä½¿ç”¨å°å‹æ•™åŠ¡ç³»ç»Ÿ", "æ¥·ä½“");
 
     setfillcolor(RGB(50,100,200));
     fillroundrect(450, 320, 630, 355, 10, 10);
     fillroundrect(450, 370, 630, 405, 10, 10);
 
-    ot(500, 330, WHITE, 20, 0, "½øÈëÏµÍ³", "¿¬Ìå");
-    ot(520, 378, WHITE, 20, 0, "ÍË³ö", "¿¬Ìå");
+    ot(500, 330, WHITE, 20, 0, "è¿›å…¥ç³»ç»Ÿ", "æ¥·ä½“");
+    ot(520, 378, WHITE, 20, 0, "é€€å‡º", "æ¥·ä½“");
     while(true){
         if(peekmessage(&msg, EM_MOUSE)){
             if(msg.x >= 450 && msg.x <= 630 && msg.y >= 320 && msg.y <= 355){
@@ -2161,21 +2159,21 @@ void startgraph() {
     }
 }
 
-//Í³¼ÆĞÅÏ¢¶ş¼¶²Ëµ¥
+//ç»Ÿè®¡ä¿¡æ¯äºŒçº§èœå•
 void Sort_or_Score(){
     menu(4);
     setlinecolor(RGB(70,120,210));
     setfillcolor(RGB(70,120,210));
     fillrectangle(170, 0, 340, 720);
-    ot(190, 60, WHITE, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
-    ot(182, 150, WHITE, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
+    ot(190, 60, WHITE, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
+    ot(182, 150, WHITE, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
     while(true) {
         if (peekmessage(&msg, EM_MOUSE)) {
             menuanimation(msg.x, msg.y, 4);
-            if (msg.x >= 170 && msg.x <= 340 && msg.y >= 25 && msg.y <= 115) ot(190, 60, YELLOW, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
-            else ot(190, 60, WHITE, 20, 0, "Ö¸¶¨¿Î³ÌÅÅÃû", "ËÎÌå");
-            if(msg.x >= 170 && msg.x <= 340 && msg.y >= 115 && msg.y <= 205) ot(182,  150, YELLOW, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
-            else ot(182, 150, WHITE, 20, 0, "Ö¸¶¨·ÖÊı¶ÎÍ³¼Æ", "ËÎÌå");
+            if (msg.x >= 170 && msg.x <= 340 && msg.y >= 25 && msg.y <= 115) ot(190, 60, YELLOW, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
+            else ot(190, 60, WHITE, 20, 0, "æŒ‡å®šè¯¾ç¨‹æ’å", "å®‹ä½“");
+            if(msg.x >= 170 && msg.x <= 340 && msg.y >= 115 && msg.y <= 205) ot(182,  150, YELLOW, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
+            else ot(182, 150, WHITE, 20, 0, "æŒ‡å®šåˆ†æ•°æ®µç»Ÿè®¡", "å®‹ä½“");
         }
         switch (msg.message) {
             case WM_LBUTTONDOWN:{
@@ -2201,17 +2199,17 @@ void Sort_or_Score(){
     }
 }
 
-//Ê×´Î½øÈë½çÃæ»æÖÆ
+//é¦–æ¬¡è¿›å…¥ç•Œé¢ç»˜åˆ¶
 void askinggraph() {
     flushmessage(EM_MOUSE);
     cleardevice();
-    ot(230, 230, BLACK, 25, 0, "µ±Ç°ÏµÍ³ÎŞÊı¾İ,¿ÉÑ¡Ôñ¶ÁÈ¡±¾µØÊı¾İ»ò½øĞĞ³õÊ¼»¯ÉèÖÃ", "¿¬Ìå");
+    ot(230, 230, BLACK, 25, 0, "å½“å‰ç³»ç»Ÿæ— æ•°æ®,å¯é€‰æ‹©è¯»å–æœ¬åœ°æ•°æ®æˆ–è¿›è¡Œåˆå§‹åŒ–è®¾ç½®", "æ¥·ä½“");
     setfillcolor(RGB(50, 100, 200));
     setlinecolor(BLACK);
     fillroundrect(450, 280, 630, 325, 10, 10);
     fillroundrect(450, 355, 630, 400, 10, 10);
-    ot(480, 293, WHITE, 20, 0, "¶ÁÈ¡±¾µØÊı¾İ", "¿¬Ìå");
-    ot(500, 368, WHITE, 20, 0, "½øÈëÉèÖÃ", "¿¬Ìå");
+    ot(480, 293, WHITE, 20, 0, "è¯»å–æœ¬åœ°æ•°æ®", "æ¥·ä½“");
+    ot(500, 368, WHITE, 20, 0, "è¿›å…¥è®¾ç½®", "æ¥·ä½“");
     while (true) {
         msg = getmessage(EM_MOUSE);
         if (msg.x >= 450 && msg.x <= 630 && msg.y >= 280 && msg.y <= 325) {
@@ -2235,23 +2233,23 @@ void askinggraph() {
                     Read();
                     if (lessonNumber == 0 && s.empty()) {
                         HWND er = GetHWnd();
-                        MessageBox(er, "±¾µØÎŞÊı¾İ£¬½«½øÈëÉèÖÃ", "´íÎó", MB_OK);
+                        MessageBox(er, "æœ¬åœ°æ— æ•°æ®ï¼Œå°†è¿›å…¥è®¾ç½®", "é”™è¯¯", MB_OK);
                         flushmessage(EM_MOUSE);
                         Setting();
                         return;
                     } else if (lessonNumber == 0) {
                         HWND er = GetHWnd();
-                        MessageBox(er, "µ±Ç°¿Î³ÌÊıÁ¿ÎªÁã£¬Çë½øÈëÉèÖÃÔö¼Ó¿Î³Ì", "ÌáÊ¾", MB_OK);
+                        MessageBox(er, "å½“å‰è¯¾ç¨‹æ•°é‡ä¸ºé›¶ï¼Œè¯·è¿›å…¥è®¾ç½®å¢åŠ è¯¾ç¨‹", "æç¤º", MB_OK);
                         flushmessage(EM_MOUSE);
                         Setting();
                         return;
                     } else {
                         HWND er = GetHWnd();
                         char ch[100];
-                        sprintf(ch, "%s%d%s%d%s", "¶ÁÈ¡³É¹¦£¬µ±Ç°ÓĞ", int(s.size()), "ÃûÑ§Éú£¬", lessonNumber,
-                                "ÃÅ¿Î³Ì");
+                        sprintf(ch, "%s%d%s%d%s", "è¯»å–æˆåŠŸï¼Œå½“å‰æœ‰", int(s.size()), "åå­¦ç”Ÿï¼Œ", lessonNumber,
+                                "é—¨è¯¾ç¨‹");
                         flushmessage(EM_MOUSE);
-                        MessageBox(er, ch, "ÌáÊ¾", MB_OK);
+                        MessageBox(er, ch, "æç¤º", MB_OK);
                         return;
                     }
                 }
@@ -2270,17 +2268,17 @@ int main() {
     setbkcolor(WHITE);
     setbkmode(TRANSPARENT);
     cleardevice();
-    //³õÊ¼»¯´°¿Ú
+    //åˆå§‹åŒ–çª—å£
 
-    startgraph();//Ö÷½çÃæ
+    startgraph();//ä¸»ç•Œé¢
     flushmessage(EM_MOUSE);
-    if(endsystem) return 0;//Ö÷½çÃæÍË³ö
+    if(endsystem) return 0;//ä¸»ç•Œé¢é€€å‡º
 
     if (lessonNumber == 0 && s.empty()) {
         askinggraph();
-    }//³õÊ¼»¯½çÃæ
+    }//åˆå§‹åŒ–ç•Œé¢
 
-    //½çÃæÌø×ª
+    //ç•Œé¢è·³è½¬
     while (true) {
         switch (choose) {
             case 1:
