@@ -2,7 +2,7 @@
 
  * 编译环境：easyx图形库 gcc 12.2.0
 
- * 使用工具：CLion InnoSetup（用于打包安装包）
+ * 使用工具：CLion InnoSetup
 
  * 项目用时：14天
  
